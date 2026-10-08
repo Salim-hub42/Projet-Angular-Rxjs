@@ -1,0 +1,57 @@
+:host {
+  display: block;
+}
+
+header {
+  position: relative;
+  overflow: hidden;
+  padding: 1rem 1.5rem;
+  background: var(--lab-slime);
+  color: #1d1f1a; // texte toujours sombre sur le vert (contraste AA dans les 2 thèmes)
+  border-bottom: var(--lab-border);
+  font-family: var(--font-title);
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  letter-spacing: 0.05em;
+
+  // Bulles de potion qui remontent dans l'en-tête
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    border-radius: 50%;
+    border: 2px solid #1d1f1a;
+    background: rgb(255 255 255 / 0.5);
+    animation: bubble 6s ease-in infinite;
+  }
+
+  &::before {
+    right: 12%;
+    width: 18px;
+    height: 18px;
+  }
+
+  &::after {
+    right: 6%;
+    width: 11px;
+    height: 11px;
+    animation-delay: 2.5s;
+  }
+}
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+@keyframes bubble {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-90px);
+    opacity: 0;
+  }
+}

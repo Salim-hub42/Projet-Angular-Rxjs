@@ -1,1 +1,100 @@
-/* You can add global styles to this file, and also import other style files */
+/*
+ * Thème global « Labo du savant fou » 🧪
+ * Toutes les couleurs sont des variables CSS (tokens) : les composants
+ * les réutilisent avec var(--nom) au lieu de coder des couleurs en dur.
+ */
+
+:root {
+  color-scheme: light dark;
+
+  // Palette claire : cahier de labo, encre noire, fiole verte
+  --lab-bg: #f6f8ec;
+  --lab-grid: #dfe6c4;
+  --lab-surface: #ffffff;
+  --lab-ink: #1d1f1a;
+  --lab-ink-soft: #4a4f40;
+  --lab-slime: #b6d35a; // vert de la fiole (fond uniquement, jamais en texte sur blanc)
+  --lab-slime-ink: #3d5a00; // vert foncé lisible sur fond clair (contraste AA)
+  --lab-danger: #c2185b; // « ça explose » : accents, focus
+  --lab-shadow: #1d1f1a;
+  --lab-border: 3px solid var(--lab-ink);
+  --lab-radius: 14px;
+
+  --font-title: 'Bangers', 'Comic Sans MS', system-ui, sans-serif;
+  --font-body: 'Nunito', system-ui, sans-serif;
+}
+
+// Palette sombre : le labo la nuit, la potion brille
+@media (prefers-color-scheme: dark) {
+  :root {
+    --lab-bg: #14170f;
+    --lab-grid: #232a17;
+    --lab-surface: #1e2316;
+    --lab-ink: #eef5d6;
+    --lab-ink-soft: #c3cba8;
+    --lab-slime: #9fd122;
+    --lab-slime-ink: #c6f05a;
+    --lab-danger: #ff6fa8;
+    --lab-shadow: #000000;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--lab-ink);
+  // Fond quadrillé façon cahier de laboratoire
+  background-color: var(--lab-bg);
+  background-image:
+    linear-gradient(var(--lab-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--lab-grid) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-title);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  margin: 0 0 0.5rem;
+}
+
+h1 {
+  font-size: clamp(2.2rem, 6vw, 3.4rem);
+}
+
+a {
+  color: var(--lab-slime-ink);
+  font-weight: 700;
+}
+
+// Focus bien visible au clavier (exigence WCAG)
+:focus-visible {
+  outline: 3px dashed var(--lab-danger);
+  outline-offset: 3px;
+}
+
+// Respecte les personnes qui désactivent les animations
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

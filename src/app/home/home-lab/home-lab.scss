@@ -3,13 +3,59 @@
   align-items: center;
   gap: 1.5rem;
   flex-wrap: wrap;
+  margin-bottom: 2rem;
 
   img {
     width: 160px;
     height: auto;
+    border: var(--lab-border);
+    border-radius: 50%;
+    background: var(--lab-surface);
+    box-shadow: 6px 6px 0 var(--lab-shadow);
+    animation: wobble 4s ease-in-out infinite;
   }
 }
 
 .tagline {
+  margin: 0;
   font-style: italic;
+  color: var(--lab-ink-soft);
+}
+
+// Les widgets : des fiches façon case de BD
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+}
+
+li {
+  padding: 1rem 1.25rem;
+  background: var(--lab-surface);
+  border: var(--lab-border);
+  border-radius: var(--lab-radius);
+  box-shadow: 5px 5px 0 var(--lab-shadow);
+  font-weight: 700;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+
+  &:hover {
+    transform: translate(-2px, -2px) rotate(-1deg);
+    box-shadow: 8px 8px 0 var(--lab-slime);
+  }
+}
+
+// La mascotte se dandine doucement
+@keyframes wobble {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
 }
