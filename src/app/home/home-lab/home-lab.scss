@@ -1,0 +1,15 @@
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+
+  img {
+    width: 160px;
+    height: auto;
+  }
+}
+
+.tagline {
+  font-style: italic;
+}

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 import { HomeWidget } from '../../models/model-widgets';
 
 @Component({
   selector: 'app-home-lab',
-  imports: [],
+  imports: [NgOptimizedImage],
   templateUrl: './home-lab.html',
   styleUrl: './home-lab.scss',
 })

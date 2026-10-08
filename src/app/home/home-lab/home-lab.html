@@ -1,4 +1,18 @@
-<h1>Les widgets du lab</h1>
+<section class="hero">
+  <!-- priority : image visible dès l'arrivée sur la page, chargée en premier -->
+  <img
+    ngSrc="images/img-lab.avif"
+    width="740"
+    height="740"
+    priority
+    alt="Un savant fou hilare brandit une fiole verte bouillonnante"
+  />
+  <div>
+    <h1>Les widgets du lab</h1>
+    <p class="tagline">Ici, on mélange des signals et des Observables… et parfois ça explose.</p>
+  </div>
+</section>
+
 <ul>
   @for (wid of widgets; track wid.number) {
     <li>{{ wid.number }}. {{ wid.title }} ({{ wid.label }})</li>
