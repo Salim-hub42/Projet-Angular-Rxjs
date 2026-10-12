@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { NgOptimizedImage } from '@angular/common';
+import { DecimalPipe, NgOptimizedImage } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { HomeWidget } from '../../models/model-widgets';
 
 @Component({
   selector: 'app-home-lab',
-  imports: [NgOptimizedImage],
+  imports: [NgOptimizedImage, RouterLink, DecimalPipe],
   templateUrl: './home-lab.html',
   styleUrl: './home-lab.scss',
 })

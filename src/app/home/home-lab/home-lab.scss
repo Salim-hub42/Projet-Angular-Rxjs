@@ -1,61 +1,198 @@
 .hero {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  margin-bottom: 2rem;
+  display: grid;
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+// Bannière : l'image en panneau de HUD, avec un viseur et un voyant de transmission
+.banner {
+  --bracket: #38e0d0; // couleur des coins du viseur
+  --bracket-size: 26px;
+  --bracket-width: 3px;
+
+  position: relative;
+  max-width: 600px; // l'image fait 596 px : au-delà, elle deviendrait floue
+  clip-path: var(--hud-clip);
+  border-bottom: 3px solid var(--hud-accent);
 
   img {
-    width: 160px;
+    display: block;
+    width: 100%;
     height: auto;
-    border: var(--lab-border);
+  }
+
+  // Le viseur : 4 coins en « L », dessinés avec 8 dégradés (2 traits par coin)
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 22px;
+    pointer-events: none;
+    background:
+      linear-gradient(var(--bracket), var(--bracket)) top left / var(--bracket-size)
+        var(--bracket-width),
+      linear-gradient(var(--bracket), var(--bracket)) top left / var(--bracket-width)
+        var(--bracket-size),
+      linear-gradient(var(--bracket), var(--bracket)) top right / var(--bracket-size)
+        var(--bracket-width),
+      linear-gradient(var(--bracket), var(--bracket)) top right / var(--bracket-width)
+        var(--bracket-size),
+      linear-gradient(var(--bracket), var(--bracket)) bottom left / var(--bracket-size)
+        var(--bracket-width),
+      linear-gradient(var(--bracket), var(--bracket)) bottom left / var(--bracket-width)
+        var(--bracket-size),
+      linear-gradient(var(--bracket), var(--bracket)) bottom right / var(--bracket-size)
+        var(--bracket-width),
+      linear-gradient(var(--bracket), var(--bracket)) bottom right / var(--bracket-width)
+        var(--bracket-size);
+    background-repeat: no-repeat;
+    filter: drop-shadow(0 0 4px var(--bracket));
+    animation: lock-on 3.5s ease-in-out infinite;
+  }
+}
+
+// Voyant « Transmission en direct » : un point rouge qui clignote lentement
+.live {
+  position: absolute;
+  top: 0.8rem;
+  right: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.1rem 0.55rem;
+  font-family: var(--font-title);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #eef2ff;
+  background: rgb(10 15 28 / 0.75);
+
+  &::before {
+    content: '';
+    width: 0.5rem;
+    height: 0.5rem;
     border-radius: 50%;
-    background: var(--lab-surface);
-    box-shadow: 6px 6px 0 var(--lab-shadow);
-    animation: wobble 4s ease-in-out infinite;
+    background: #ff4f7b;
+    animation: blink 2s ease-in-out infinite;
   }
 }
 
 .tagline {
   margin: 0;
-  font-style: italic;
-  color: var(--lab-ink-soft);
+  color: var(--hud-ink-soft);
+  letter-spacing: 0.03em;
 }
 
-// Les widgets : des fiches façon case de BD
+// Les missions : des panneaux de HUD aux coins coupés
 ul {
   list-style: none;
   padding: 0;
   margin: 0;
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
 }
 
 li {
+  position: relative; // repère pour le ::after du lien
+  isolation: isolate; // le ::before reste derrière le contenu de la carte
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
   padding: 1rem 1.25rem;
-  background: var(--lab-surface);
-  border: var(--lab-border);
-  border-radius: var(--lab-radius);
-  box-shadow: 5px 5px 0 var(--lab-shadow);
-  font-weight: 700;
+  // La « bordure » : le fond de la carte, visible sur 2 px autour du ::before
+  background: var(--hud-line);
+  clip-path: var(--hud-clip);
   transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
+    background 0.2s ease,
+    transform 0.2s ease;
 
-  &:hover {
-    transform: translate(-2px, -2px) rotate(-1deg);
-    box-shadow: 8px 8px 0 var(--lab-slime);
+  // Le panneau intérieur, 2 px plus petit, avec les mêmes coins coupés
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    z-index: -1;
+    background: var(--hud-surface);
+    clip-path: var(--hud-clip);
+  }
+
+  a,
+  .title {
+    color: var(--hud-ink);
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  a {
+    text-decoration-color: var(--hud-glow);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+
+    // « Lien étiré » : une couche invisible qui recouvre toute la carte et reçoit le clic
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+
+    // Le focus clavier se dessine à l'intérieur de la carte (le clip-path couperait l'extérieur)
+    &:focus-visible {
+      outline: none;
+
+      &::after {
+        outline: 3px solid var(--hud-focus);
+        outline-offset: -7px;
+      }
+    }
+  }
+
+  // Seules les cartes qui contiennent un lien réagissent au survol : la bordure s'embrase
+  &:has(a):hover {
+    background: var(--hud-accent);
+    transform: translateY(-3px);
   }
 }
 
-// La mascotte se dandine doucement
-@keyframes wobble {
+.mission-id {
+  font-family: var(--font-title);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--hud-accent-ink);
+}
+
+// Insigne de catégorie (Angular, RxJS…)
+.label {
+  align-self: flex-start;
+  margin-top: 0.3rem;
+  padding: 0.05rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--hud-glow);
+  border: 1px solid var(--hud-glow);
+}
+
+// Le viseur se resserre puis se relâche, comme une cible qu'on verrouille
+@keyframes lock-on {
   0%,
   100% {
-    transform: rotate(-4deg);
+    inset: 22px;
+    opacity: 0.6;
   }
   50% {
-    transform: rotate(4deg);
+    inset: 12px;
+    opacity: 1;
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
   }
 }

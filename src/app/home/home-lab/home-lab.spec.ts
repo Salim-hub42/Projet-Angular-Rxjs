@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeLab } from './home-lab';
+import { provideRouter } from '@angular/router';
 
 describe('HomeLab', () => {
   let component: HomeLab;
@@ -9,6 +10,8 @@ describe('HomeLab', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HomeLab],
+      // routerLink a besoin du routeur : on le fournit avec une table de routes vide
+      providers: [provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HomeLab);

@@ -5,53 +5,66 @@
 header {
   position: relative;
   overflow: hidden;
-  padding: 1rem 1.5rem;
-  background: var(--lab-slime);
-  color: #1d1f1a; // texte toujours sombre sur le vert (contraste AA dans les 2 thèmes)
-  border-bottom: var(--lab-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  padding: 0.9rem 1.5rem;
+  background: var(--hud-bg-deep);
+  color: #eef2ff; // l'en-tête reste sombre dans les deux thèmes
+  border-bottom: 2px solid var(--hud-accent);
   font-family: var(--font-title);
-  font-size: clamp(1.1rem, 3vw, 1.6rem);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 
-  // Bulles de potion qui remontent dans l'en-tête
-  &::before,
-  &::after {
+  // Lueur d'explosion qui pulse derrière le titre
+  &::before {
     content: '';
     position: absolute;
-    bottom: -20px;
-    border-radius: 50%;
-    border: 2px solid #1d1f1a;
-    background: rgb(255 255 255 / 0.5);
-    animation: bubble 6s ease-in infinite;
+    inset: -60% 40% -60% -10%;
+    background: radial-gradient(ellipse at center, rgb(255 138 61 / 0.45), transparent 70%);
+    animation: pulse 4s ease-in-out infinite;
+    pointer-events: none;
   }
 
-  &::before {
-    right: 12%;
-    width: 18px;
-    height: 18px;
-  }
+  a {
+    position: relative; // au-dessus de la lueur
+    color: inherit;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: clamp(1rem, 2.8vw, 1.35rem);
 
-  &::after {
-    right: 6%;
-    width: 11px;
-    height: 11px;
-    animation-delay: 2.5s;
+    &:hover {
+      color: #ffa463;
+    }
   }
 }
 
+.brand-mark {
+  color: #ff8a3d;
+}
+
+.rank {
+  position: relative;
+  padding: 0.15rem 0.7rem;
+  border: 1px solid #38e0d0;
+  color: #38e0d0;
+  font-size: 0.8rem;
+}
+
 main {
-  max-width: 960px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 2rem 1rem;
 }
 
-@keyframes bubble {
-  from {
-    transform: translateY(0);
-    opacity: 1;
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.5;
   }
-  to {
-    transform: translateY(-90px);
-    opacity: 0;
+  50% {
+    opacity: 1;
   }
 }

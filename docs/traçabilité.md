@@ -17,3 +17,20 @@ Légende : ★ cœur · ○ courant · · référence
 | ✅ | Zoneless | ○ | Coquille | `package.json` (pas de zone.js) | Toujours : l'état affiché passe par des signals |
 | — | Angular DevTools | · | — | — | Pour inspecter les composants et les signals quand l'affichage n'est pas celui attendu |
 | — | MCP Angular | · | — | `.vscode/mcp.json` | Pour qu'un assistant IA propose du code Angular à jour |
+
+## Module 2 — [Angular] Composants et templates
+
+| ✓ | Notion | Priorité | Widget | Fichier | Quand l'utiliser en vrai |
+| --- | --- | --- | --- | --- | --- |
+| ⬜ | Anatomie d'un `@Component` (`selector`, `template` / `templateUrl`, `styles`, `imports`) | ★ | Tableau des expériences | `widgets/02-composants-templates/experiment-board/experiment-board.ts` | À chaque composant : déclarer sa balise et ce que son template utilise |
+| ⬜ | Interpolation `{{ }}` | ★ | Tableau des expériences | `experiment-board.html` | Pour afficher n'importe quelle donnée sous forme de texte |
+| ⬜ | Property binding `[prop]` | ★ | Tableau des expériences | `experiment-board.html` | Pour piloter une propriété d'un élément : `[disabled]`, `[src]`, inputs des composants enfants |
+| ⬜ | Event binding `(event)`, `$event`, filtres de touches | ★ | Tableau des expériences | `experiment-board.html` | Pour réagir aux clics, à la saisie, au clavier |
+| ⬜ | `[class.x]` / `[style.x]` / `[attr.x]` | ★ | Tableau des expériences | `experiment-board.html` | États visuels (sélectionné, erreur), valeurs calculées (largeur, couleur), attributs `aria-*` |
+| ⬜ | `@if` / `@else if` / `@else` | ★ | Tableau des expériences | `experiment-board.html` | Chargement, erreur, liste vide, droits d'accès |
+| ⬜ | `@for` (`track`, `$index`, `$last`, `@empty`) | ★ | Tableau des expériences | `experiment-board.html` | Toute liste : tableaux, menus, résultats de recherche |
+| ⬜ | `@switch` / `@case` / `@default` | ★ | Tableau des expériences | `experiment-board.html` | Afficher selon un statut ou un type (commande, rôle, étape) |
+| ⬜ | Variables de template `#ref` | ○ | Tableau des expériences | `experiment-board.html` | Lire un champ ou donner le focus sans passer par la classe |
+| ⬜ | `@let` | ○ | Tableau des expériences | `experiment-board.html` | Éviter de répéter une expression dans le template |
+| ⬜ | Encapsulation des styles (`:host`, `ViewEncapsulation`) | ○ | Tableau des expériences | `experiment-board.scss` | Toujours : styles limités au composant, thème partagé par variables CSS |
+| — | Membres privés dans les templates (v22.2) | · | — | — | En lisant du code récent qui n'utilise plus `protected` |

@@ -1,41 +1,59 @@
 /*
- * Thème global « Labo du savant fou » 🧪
+ * Thème global « Escouade Angular » 🚀
+ * Base spatiale, panneaux de HUD, explosions orange et néons cyan.
  * Toutes les couleurs sont des variables CSS (tokens) : les composants
  * les réutilisent avec var(--nom) au lieu de coder des couleurs en dur.
  */
 
+// Palette sombre (par défaut) : le champ de bataille de nuit
 :root {
-  color-scheme: light dark;
+  color-scheme: dark light;
 
-  // Palette claire : cahier de labo, encre noire, fiole verte
-  --lab-bg: #f6f8ec;
-  --lab-grid: #dfe6c4;
-  --lab-surface: #ffffff;
-  --lab-ink: #1d1f1a;
-  --lab-ink-soft: #4a4f40;
-  --lab-slime: #b6d35a; // vert de la fiole (fond uniquement, jamais en texte sur blanc)
-  --lab-slime-ink: #3d5a00; // vert foncé lisible sur fond clair (contraste AA)
-  --lab-danger: #c2185b; // « ça explose » : accents, focus
-  --lab-shadow: #1d1f1a;
-  --lab-border: 3px solid var(--lab-ink);
-  --lab-radius: 14px;
+  --hud-bg: #0f1626; // ciel nocturne
+  --hud-bg-deep: #0a0f1c; // en-tête, zones les plus sombres
+  --hud-surface: #1a2338; // panneaux (armure bleu acier)
+  --hud-ink: #eef2ff; // texte principal
+  --hud-ink-soft: #aab4d4; // texte secondaire
+  --hud-line: #2f6f8f; // bordures des panneaux au repos
+  --hud-glow: #38e0d0; // néon cyan des armures
+  --hud-accent: #ff8a3d; // orange explosion (fonds, bordures, lueurs)
+  --hud-accent-ink: #ffa463; // orange lisible en TEXTE sur le fond
+  --hud-success: #7dff6a; // vert plasma : mission accomplie
+  --hud-danger: #ff4f7b; // rouge-violet : alerte
+  --hud-on-accent: #0a0f1c; // texte posé SUR un fond orange ou cyan
+  --hud-focus: #ff8a3d; // contour de focus clavier
 
-  --font-title: 'Bangers', 'Comic Sans MS', system-ui, sans-serif;
-  --font-body: 'Nunito', system-ui, sans-serif;
+  --hud-border: 2px solid var(--hud-line);
+  --hud-cut: 14px; // taille des coins coupés
+  // Forme « panneau de HUD » : coins haut-gauche et bas-droit coupés en biseau
+  --hud-clip: polygon(
+    var(--hud-cut) 0,
+    100% 0,
+    100% calc(100% - var(--hud-cut)),
+    calc(100% - var(--hud-cut)) 100%,
+    0 100%,
+    0 var(--hud-cut)
+  );
+
+  --font-title: 'Russo One', 'Arial Black', system-ui, sans-serif;
+  --font-body: 'Exo 2', system-ui, sans-serif;
 }
 
-// Palette sombre : le labo la nuit, la potion brille
-@media (prefers-color-scheme: dark) {
+// Palette claire : le briefing de jour
+@media (prefers-color-scheme: light) {
   :root {
-    --lab-bg: #14170f;
-    --lab-grid: #232a17;
-    --lab-surface: #1e2316;
-    --lab-ink: #eef5d6;
-    --lab-ink-soft: #c3cba8;
-    --lab-slime: #9fd122;
-    --lab-slime-ink: #c6f05a;
-    --lab-danger: #ff6fa8;
-    --lab-shadow: #000000;
+    --hud-bg: #e9edf4;
+    --hud-bg-deep: #141c2e; // l'en-tête reste sombre, comme un cockpit
+    --hud-surface: #ffffff;
+    --hud-ink: #121a2b;
+    --hud-ink-soft: #44506b;
+    --hud-line: #7d8fb0;
+    --hud-glow: #00756b;
+    --hud-accent: #ff8a3d;
+    --hud-accent-ink: #a83f00;
+    --hud-success: #1f7a12;
+    --hud-danger: #c0103f;
+    --hud-focus: #a83f00; // l'orange vif est trop pâle sur blanc
   }
 }
 
@@ -55,13 +73,13 @@ body {
   font-family: var(--font-body);
   font-size: 1.05rem;
   line-height: 1.6;
-  color: var(--lab-ink);
-  // Fond quadrillé façon cahier de laboratoire
-  background-color: var(--lab-bg);
+  color: var(--hud-ink);
+  background-color: var(--hud-bg);
+  // Lueur d'explosion au loin + fines lignes de scanner
   background-image:
-    linear-gradient(var(--lab-grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--lab-grid) 1px, transparent 1px);
-  background-size: 28px 28px;
+    radial-gradient(ellipse at 50% -10%, rgb(255 138 61 / 0.18), transparent 60%),
+    repeating-linear-gradient(0deg, rgb(56 224 208 / 0.04) 0 1px, transparent 1px 4px);
+  background-attachment: fixed;
 }
 
 h1,
@@ -69,23 +87,24 @@ h2,
 h3 {
   font-family: var(--font-title);
   font-weight: 400;
-  letter-spacing: 0.04em;
-  line-height: 1.1;
+  letter-spacing: 0.06em;
+  line-height: 1.15;
+  text-transform: uppercase;
   margin: 0 0 0.5rem;
 }
 
 h1 {
-  font-size: clamp(2.2rem, 6vw, 3.4rem);
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
 }
 
 a {
-  color: var(--lab-slime-ink);
-  font-weight: 700;
+  color: var(--hud-glow);
+  font-weight: 600;
 }
 
 // Focus bien visible au clavier (exigence WCAG)
 :focus-visible {
-  outline: 3px dashed var(--lab-danger);
+  outline: 3px solid var(--hud-focus);
   outline-offset: 3px;
 }
 

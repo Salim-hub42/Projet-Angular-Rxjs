@@ -1,10 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
+import { provideRouter } from '@angular/router';
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
+      // routerLink a besoin du routeur : on le fournit avec une table de routes vide
+      providers: [provideRouter([])],
     }).compileComponents();
   });
 
@@ -19,7 +22,7 @@ describe('App', () => {
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('header')?.textContent).toContain(
-      'Session Angular - Rxjs : Laboratoire de mise en pratique.',
+      'Escouade Angular // Centre de commandement',
     );
   });
 });

@@ -1,5 +1,7 @@
 <header>
-  {{ title() }}
+  <!-- Le titre ramène à l'accueil -->
+  <a routerLink="/"><span class="brand-mark" aria-hidden="true">◢ </span>{{ title() }}</a>
+  <span class="rank">Rang : recrue</span>
 </header>
 <main>
   <router-outlet />

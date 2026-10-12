@@ -1,20 +1,34 @@
 <section class="hero">
-  <!-- priority : image visible dès l'arrivée sur la page, chargée en premier -->
-  <img
-    ngSrc="images/img-lab.avif"
-    width="740"
-    height="740"
-    priority
-    alt="Un savant fou hilare brandit une fiole verte bouillonnante"
-  />
+  <div class="banner">
+    <!-- priority : image visible dès l'arrivée sur la page, chargée en premier -->
+    <img
+      ngSrc="images/iron.jpg"
+      width="596"
+      height="335"
+      priority
+      alt="Trois soldats en armure futuriste chargent, armes au poing, devant une immense explosion"
+    />
+    <!-- Décoratif : masqué aux lecteurs d'écran -->
+    <span class="live" aria-hidden="true">Transmission en direct</span>
+  </div>
   <div>
-    <h1>Les widgets du lab</h1>
-    <p class="tagline">Ici, on mélange des signals et des Observables… et parfois ça explose.</p>
+    <h1>Missions disponibles</h1>
+    <p class="tagline">Chaque module est une mission. Aucun bug ne passe.</p>
   </div>
 </section>
 
 <ul>
   @for (wid of widgets; track wid.number) {
-    <li>{{ wid.number }}. {{ wid.title }} ({{ wid.label }})</li>
+    <li>
+      <!-- pipe number : '2.0' affiche au moins 2 chiffres (1 → 01). Les pipes : module 5 -->
+      <span class="mission-id">Mission {{ wid.number | number: '2.0' }}</span>
+      <!-- routerLink : navigation sans recharger la page (détails au module 9) -->
+      @if (wid.path) {
+        <a [routerLink]="wid.path">{{ wid.title }}</a>
+      } @else {
+        <span class="title">{{ wid.title }}</span>
+      }
+      <span class="label">{{ wid.label }}</span>
+    </li>
   }
 </ul>
