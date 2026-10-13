@@ -1,0 +1,49 @@
+<h1>Tableau des missions</h1>
+
+<!-- Bannière : mode "fill", l'image remplit son conteneur (.banner) au lieu d'avoir une taille fixe -->
+<div class="banner">
+  <img
+    ngSrc="images/iron2.jpg"
+    fill
+    priority
+    alt="Un robot géant vert et deux véhicules blindés défendent une falaise contre une horde d'aliens"
+  />
+</div>
+
+<h2>Rapport de l'escouade</h2>
+@let count = missions().length;
+<p>Nombre de missions : {{ count }}</p>
+<ul>
+  <!-- let odd = $odd : récupère la variable $odd du @for sous le nom "odd" -->
+  @for (mission of missions(); track mission.id; let odd = $odd) {
+    <!-- [class.odd] : la classe "odd" n'est ajoutée qu'aux lignes impaires (2e, 4e…) -->
+    <li [class.odd]="odd">
+      {{ mission.title }} - Progression : {{ mission.progress }}%
+
+      <!-- Barre de progression : un conteneur (le fond) et un remplissage (la partie pleine) -->
+      <div
+        class="progress"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        [attr.aria-valuenow]="mission.progress"
+        [attr.aria-label]="'Progression : ' + mission.title"
+      >
+        <div class="progress__fill" [style.width.%]="mission.progress"></div>
+      </div>
+      @switch (mission.status) {
+        @case ('in-progress') {
+          <p>Cette mission est en cours.</p>
+        }
+        @case ('accomplished') {
+          <p>Cette mission a été accomplie avec succès !</p>
+        }
+        @case ('failed') {
+          <p>Cette mission a échoué. Il faudra réessayer.</p>
+        }
+      }
+    </li>
+  } @empty {
+    <li>Aucune mission disponible.</li>
+  }
+</ul>

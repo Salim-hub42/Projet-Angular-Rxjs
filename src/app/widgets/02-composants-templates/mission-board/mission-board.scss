@@ -1,0 +1,38 @@
+// Bannière : le conteneur fixe la forme, l'image en mode "fill" s'y adapte
+.banner {
+  position: relative; // obligatoire en mode "fill" : l'image se positionne par rapport à lui
+  aspect-ratio: 21 / 9; // bandeau large, quelle que soit la largeur de l'écran
+  margin-bottom: 1.5rem;
+  clip-path: var(--hud-clip); // coins coupés, comme les panneaux du thème
+  border-bottom: 3px solid var(--hud-accent);
+
+  img {
+    object-fit: cover; // remplit le cadre sans se déformer (les bords sont rognés)
+    object-position: center 35%; // garde le robot bien visible
+  }
+}
+
+// Zébrage : une ligne sur deux a un fond différent
+li {
+  padding: 0.6rem 0.8rem;
+}
+
+.odd {
+  background: var(--hud-surface);
+}
+
+// Barre de progression : le conteneur dessine le fond, toujours sur toute la largeur
+.progress {
+  height: 0.6rem;
+  margin-top: 0.4rem;
+  background: var(--hud-bg-deep);
+  border: 1px solid var(--hud-line);
+  overflow: hidden; // le remplissage ne déborde jamais du conteneur
+}
+
+// Le remplissage : sa largeur vient de [style.width.%] dans le template
+.progress__fill {
+  height: 100%; // sans hauteur, une <div> vide est invisible
+  background: var(--hud-glow);
+  transition: width 0.3s ease; // la barre glissera quand progress changera (étape 5)
+}

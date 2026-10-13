@@ -22,15 +22,15 @@ Légende : ★ cœur · ○ courant · · référence
 
 | ✓ | Notion | Priorité | Widget | Fichier | Quand l'utiliser en vrai |
 | --- | --- | --- | --- | --- | --- |
-| ⬜ | Anatomie d'un `@Component` (`selector`, `template` / `templateUrl`, `styles`, `imports`) | ★ | Tableau des expériences | `widgets/02-composants-templates/experiment-board/experiment-board.ts` | À chaque composant : déclarer sa balise et ce que son template utilise |
-| ⬜ | Interpolation `{{ }}` | ★ | Tableau des expériences | `experiment-board.html` | Pour afficher n'importe quelle donnée sous forme de texte |
-| ⬜ | Property binding `[prop]` | ★ | Tableau des expériences | `experiment-board.html` | Pour piloter une propriété d'un élément : `[disabled]`, `[src]`, inputs des composants enfants |
-| ⬜ | Event binding `(event)`, `$event`, filtres de touches | ★ | Tableau des expériences | `experiment-board.html` | Pour réagir aux clics, à la saisie, au clavier |
-| ⬜ | `[class.x]` / `[style.x]` / `[attr.x]` | ★ | Tableau des expériences | `experiment-board.html` | États visuels (sélectionné, erreur), valeurs calculées (largeur, couleur), attributs `aria-*` |
-| ⬜ | `@if` / `@else if` / `@else` | ★ | Tableau des expériences | `experiment-board.html` | Chargement, erreur, liste vide, droits d'accès |
-| ⬜ | `@for` (`track`, `$index`, `$last`, `@empty`) | ★ | Tableau des expériences | `experiment-board.html` | Toute liste : tableaux, menus, résultats de recherche |
-| ⬜ | `@switch` / `@case` / `@default` | ★ | Tableau des expériences | `experiment-board.html` | Afficher selon un statut ou un type (commande, rôle, étape) |
-| ⬜ | Variables de template `#ref` | ○ | Tableau des expériences | `experiment-board.html` | Lire un champ ou donner le focus sans passer par la classe |
-| ⬜ | `@let` | ○ | Tableau des expériences | `experiment-board.html` | Éviter de répéter une expression dans le template |
-| ⬜ | Encapsulation des styles (`:host`, `ViewEncapsulation`) | ○ | Tableau des expériences | `experiment-board.scss` | Toujours : styles limités au composant, thème partagé par variables CSS |
+| ⬜ | Anatomie d'un `@Component` (`selector`, `template` / `templateUrl`, `styles`, `imports`) | ★ | Tableau des missions | `widgets/02-composants-templates/mission-board/mission-board.ts` | À chaque composant : déclarer sa balise et ce que son template utilise |
+| ⬜ | Interpolation `{{ }}` | ★ | Tableau des missions | `mission-board.html` | Pour afficher n'importe quelle donnée sous forme de texte |
+| ⬜ | Property binding `[prop]` | ★ | Tableau des missions | `mission-board.html` | Pour piloter une propriété d'un élément : `[disabled]`, `[src]`, inputs des composants enfants |
+| ⬜ | Event binding `(event)`, `$event`, filtres de touches | ★ | Tableau des missions | `mission-board.html` | Pour réagir aux clics, à la saisie, au clavier |
+| ⬜ | `[class.x]` / `[style.x]` / `[attr.x]` | ★ | Tableau des missions | `mission-board.html` | États visuels (sélectionné, erreur), valeurs calculées (largeur, couleur), attributs `aria-*` |
+| ⬜ | `@if` / `@else if` / `@else` | ★ | Tableau des missions | `mission-board.html` | Chargement, erreur, liste vide, droits d'accès |
+| ⬜ | `@for` (`track`, `$index`, `$last`, `@empty`) | ★ | Tableau des missions | `mission-board.html` | Toute liste : tableaux, menus, résultats de recherche |
+| ⬜ | `@switch` / `@case` / `@default` | ★ | Tableau des missions | `mission-board.html` | Afficher selon un statut ou un type (commande, rôle, étape) |
+| ⬜ | Variables de template `#ref` | ○ | Tableau des missions | `mission-board.html` | Lire un champ ou donner le focus sans passer par la classe |
+| ⬜ | `@let` | ○ | Tableau des missions | `mission-board.html` | Éviter de répéter une expression dans le template |
+| ⬜ | Encapsulation des styles (`:host`, `ViewEncapsulation`) | ○ | Tableau des missions | `mission-board.scss` | Toujours : styles limités au composant, thème partagé par variables CSS |
 | — | Membres privés dans les templates (v22.2) | · | — | — | En lisant du code récent qui n'utilise plus `protected` |

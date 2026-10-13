@@ -12,5 +12,11 @@ import { HomeWidget } from '../../models/model-widgets';
 export class HomeLab {
   protected readonly widgets: HomeWidget[] = [
     { number: 1, title: 'Architecture et outillage', label: 'Angular' },
+    {
+      number: 2,
+      title: 'Composants et templates',
+      label: 'Angular',
+      path: '/02-composants-templates',
+    },
   ];
 }
