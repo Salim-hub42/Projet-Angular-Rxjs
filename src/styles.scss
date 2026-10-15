@@ -102,6 +102,37 @@ a {
   font-weight: 600;
 }
 
+// Boutons façon HUD : contour néon au repos, plein au survol
+button {
+  font-family: var(--font-title);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.4rem 1rem;
+  color: var(--hud-glow);
+  background: transparent;
+  border: 2px solid var(--hud-glow);
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+
+  &:hover:not(:disabled) {
+    background: var(--hud-glow);
+    color: var(--hud-surface); // texte foncé sur cyan (sombre), blanc sur vert (clair)
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(1px); // petit effet « enfoncé »
+  }
+
+  // Bouton désactivé : visiblement inactif (utile pour [disabled])
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
 // Focus bien visible au clavier (exigence WCAG)
 :focus-visible {
   outline: 3px solid var(--hud-focus);

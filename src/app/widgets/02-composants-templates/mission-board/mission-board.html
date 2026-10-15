@@ -17,8 +17,15 @@
   <!-- let odd = $odd : récupère la variable $odd du @for sous le nom "odd" -->
   @for (mission of missions(); track mission.id; let odd = $odd) {
     <!-- [class.odd] : la classe "odd" n'est ajoutée qu'aux lignes impaires (2e, 4e…) -->
-    <li [class.odd]="odd">
-      {{ mission.title }} - Progression : {{ mission.progress }}%
+    <!-- [class.accomplished] / [class.failed] : une classe par statut, pour la couleur de la carte -->
+    <li
+      class="mission"
+      [class.odd]="odd"
+      [class.accomplished]="mission.status === 'accomplished'"
+      [class.failed]="mission.status === 'failed'"
+    >
+      <span class="mission__title">{{ mission.title }}</span>
+      <span class="mission__progress">Progression : {{ mission.progress }} %</span>
 
       <!-- Barre de progression : un conteneur (le fond) et un remplissage (la partie pleine) -->
       <div
@@ -33,17 +40,43 @@
       </div>
       @switch (mission.status) {
         @case ('in-progress') {
-          <p>Cette mission est en cours.</p>
+          <p class="status">Cette mission est en cours.</p>
         }
         @case ('accomplished') {
-          <p>Cette mission a été accomplie avec succès !</p>
+          <p class="status">Cette mission a été accomplie avec succès !</p>
         }
         @case ('failed') {
-          <p>Cette mission a échoué. Il faudra réessayer.</p>
+          <p class="status">Cette mission a échoué. Il faudra réessayer.</p>
         }
       }
+      <!-- Conteneur des boutons : c'est lui qui gère l'espacement (gap) -->
+      <div class="actions">
+        <button
+          [disabled]="mission.status !== 'in-progress'"
+          [attr.aria-label]="'+10 % : ' + mission.title"
+          type="button"
+          (click)="advanceMission(mission.id)"
+        >
+          +10 %
+        </button>
+
+        <button
+          class="danger"
+          [disabled]="mission.status !== 'in-progress'"
+          [attr.aria-label]="'Abandonner : ' + mission.title"
+          type="button"
+          (click)="abandonMission(mission.id)"
+        >
+          Abandonner
+        </button>
+      </div>
     </li>
   } @empty {
-    <li>Aucune mission disponible.</li>
+    <li class="empty">Aucune mission disponible.</li>
   }
 </ul>
+<form class="launch" (submit)="launchMission($event, newMissionInput)">
+  <label for="newMissionInput">Ajouter une nouvelle mission :</label>
+  <input id="newMissionInput" #newMissionInput type="text" placeholder="Nouvelle mission..." />
+  <button type="submit">Lancer la mission</button>
+</form>

@@ -1,3 +1,8 @@
+// :host = la balise <app-mission-board> elle-même : un bloc (une balise inconnue est "inline" par défaut)
+:host {
+  display: block;
+}
+
 // Bannière : le conteneur fixe la forme, l'image en mode "fill" s'y adapte
 .banner {
   position: relative; // obligatoire en mode "fill" : l'image se positionne par rapport à lui
@@ -12,27 +17,147 @@
   }
 }
 
-// Zébrage : une ligne sur deux a un fond différent
-li {
-  padding: 0.6rem 0.8rem;
+// La liste : on retire les puces, les cartes s'empilent avec un espace régulier
+ul {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
 }
 
+// Une carte de mission : la bordure gauche colorée indique le statut
+.mission {
+  --status-color: var(--hud-glow); // en cours : cyan (valeur par défaut)
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.9rem 1.1rem;
+  border: var(--hud-border);
+  border-left: 5px solid var(--status-color);
+  clip-path: var(--hud-clip);
+}
+
+// Zébrage : une ligne sur deux a un fond différent
 .odd {
   background: var(--hud-surface);
+}
+
+// Chaque statut change seulement la variable --status-color : bordure et barre suivent
+.accomplished {
+  --status-color: var(--hud-success);
+}
+
+.failed {
+  --status-color: var(--hud-danger);
+  animation: glitch 0.4s steps(2) 1; // une secousse quand la mission échoue
+
+  .mission__title {
+    text-decoration: line-through;
+    text-decoration-color: var(--hud-danger);
+  }
+}
+
+.mission__title {
+  font-family: var(--font-title);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.mission__progress {
+  font-size: 0.9rem;
+  color: var(--hud-ink-soft);
+}
+
+.status {
+  margin: 0;
+}
+
+.empty {
+  font-style: italic;
+  color: var(--hud-ink-soft);
 }
 
 // Barre de progression : le conteneur dessine le fond, toujours sur toute la largeur
 .progress {
   height: 0.6rem;
-  margin-top: 0.4rem;
   background: var(--hud-bg-deep);
   border: 1px solid var(--hud-line);
   overflow: hidden; // le remplissage ne déborde jamais du conteneur
 }
 
-// Le remplissage : sa largeur vient de [style.width.%] dans le template
+// Le remplissage : sa largeur vient de [style.width.%] dans le template, sa couleur du statut
 .progress__fill {
   height: 100%; // sans hauteur, une <div> vide est invisible
-  background: var(--hud-glow);
-  transition: width 0.3s ease; // la barre glissera quand progress changera (étape 5)
+  background: var(--status-color);
+  transition: width 0.3s ease; // la barre glisse quand progress change
+}
+
+// Boutons d'action : alignés en ligne, espacés par gap, et qui passent à la ligne si l'écran est étroit
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.3rem;
+}
+
+// Bouton d'action destructrice : rouge au lieu du cyan du thème
+.danger {
+  color: var(--hud-danger);
+  border-color: var(--hud-danger);
+
+  &:hover:not(:disabled) {
+    background: var(--hud-danger);
+    color: var(--hud-surface);
+  }
+}
+
+// Formulaire « Lancer une mission » : un panneau HUD
+.launch {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem 1.1rem;
+  background: var(--hud-surface);
+  border: var(--hud-border);
+  clip-path: var(--hud-clip);
+
+  label {
+    width: 100%; // le label prend toute la ligne, champ et bouton passent en dessous
+    font-weight: 700;
+  }
+
+  input {
+    flex: 1;
+    min-width: 12rem;
+    padding: 0.45rem 0.8rem;
+    font: inherit;
+    color: var(--hud-ink);
+    background: var(--hud-bg);
+    border: 2px solid var(--hud-line);
+
+    &::placeholder {
+      color: var(--hud-ink-soft);
+    }
+
+    &:focus-visible {
+      border-color: var(--hud-glow);
+    }
+  }
+}
+
+// Secousse façon « signal brouillé » : jouée une seule fois, quand la classe .failed arrive
+@keyframes glitch {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
 }
