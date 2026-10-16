@@ -34,3 +34,16 @@ Légende : ★ cœur · ○ courant · · référence
 | ✅ | `@let` | ○ | Tableau des missions | `mission-board.html` | Éviter de répéter une expression dans le template |
 | ✅ | Encapsulation des styles (`:host`, `ViewEncapsulation`) | ○ | Tableau des missions | `mission-board.scss` | Toujours : styles limités au composant, thème partagé par variables CSS |
 | — | Membres privés dans les templates (v22.2) | · | — | — | En lisant du code récent qui n'utilise plus `protected` |
+
+## Module 3 — [Angular] Signals
+
+| ✓ | Notion | Priorité | Widget | Fichier | Quand l'utiliser en vrai |
+| --- | --- | --- | --- | --- | --- |
+| ⬜ | `signal` (`set`, `update`) | ★ | Poste de ravitaillement | `widgets/03-signals/supply-depot/supply-depot.ts` | Pour tout état local affiché : il prévient Angular quand il change |
+| ⬜ | `computed` | ★ | Poste de ravitaillement | `supply-depot.ts` | Pour toute valeur qui se déduit d'autres valeurs : totaux, filtres, états « valide / vide / plein » |
+| ⬜ | Lecture des signals dans le template | ★ | Poste de ravitaillement | `supply-depot.html` | Toujours : `valeur()` dans le template abonne automatiquement le composant |
+| ⬜ | `effect` (et quand NE PAS l'utiliser) | ★ | Poste de ravitaillement | `supply-depot.ts` | Pour synchroniser un signal avec l'extérieur (localStorage, journal, DOM, bibliothèque tierce) ; jamais pour calculer de l'état |
+| ⬜ | `linkedSignal` | ○ | Poste de ravitaillement (bonus) | `supply-depot.ts` | Pour une valeur dérivée qui doit rester modifiable : sélection dans une liste, valeur par défaut réinitialisée |
+| ⬜ | `untracked` | ○ | Poste de ravitaillement (bonus) | `supply-depot.ts` | Dans un `effect`, pour lire un signal « pour information » sans qu'il relance l'effet |
+| ⬜ | `asReadonly()` | ○ | Poste de ravitaillement (bonus) | `supply-depot.ts` | Pour exposer un état en lecture seule et forcer les modifications à passer par des méthodes (services, stores) |
+| — | `equal` personnalisé | · | — | — | Quand un signal reçoit souvent un nouvel objet identique et que les recalculs coûtent cher |
