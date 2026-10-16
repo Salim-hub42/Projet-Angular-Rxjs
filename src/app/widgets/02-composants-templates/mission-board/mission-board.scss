@@ -70,6 +70,19 @@ ul {
   color: var(--hud-ink-soft);
 }
 
+// Message « Bravo soldat ! » : une médaille verte qui apparaît quand le @if devient vrai
+.mission__status {
+  align-self: flex-start; // la médaille garde la largeur de son texte
+  padding: 0.1rem 0.7rem;
+  font-family: var(--font-title);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--hud-success);
+  border: 1px solid var(--hud-success);
+  animation: medal 0.5s ease-out;
+}
+
 .status {
   margin: 0;
 }
@@ -145,6 +158,21 @@ ul {
     &:focus-visible {
       border-color: var(--hud-glow);
     }
+  }
+}
+
+// Apparition de la médaille : elle grossit un peu puis se pose
+@keyframes medal {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 

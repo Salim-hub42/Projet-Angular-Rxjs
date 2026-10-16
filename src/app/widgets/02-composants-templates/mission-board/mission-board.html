@@ -25,6 +25,9 @@
       [class.failed]="mission.status === 'failed'"
     >
       <span class="mission__title">{{ mission.title }}</span>
+      @if (mission.status === 'accomplished') {
+        <span class="mission__status">Bravo soldat !</span>
+      }
       <span class="mission__progress">Progression : {{ mission.progress }} %</span>
 
       <!-- Barre de progression : un conteneur (le fond) et un remplissage (la partie pleine) -->
@@ -49,6 +52,7 @@
           <p class="status">Cette mission a échoué. Il faudra réessayer.</p>
         }
       }
+
       <!-- Conteneur des boutons : c'est lui qui gère l'espacement (gap) -->
       <div class="actions">
         <button
