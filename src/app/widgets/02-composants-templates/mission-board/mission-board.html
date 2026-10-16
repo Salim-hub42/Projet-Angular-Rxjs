@@ -73,6 +73,14 @@
         >
           Abandonner
         </button>
+        <button
+          [disabled]="mission.status === 'in-progress'"
+          [attr.aria-label]="'Archiver : ' + mission.title"
+          type="button"
+          (click)="archiveMission(mission.id)"
+        >
+          Archiver
+        </button>
       </div>
     </li>
   } @empty {

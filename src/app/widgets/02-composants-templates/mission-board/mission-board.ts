@@ -93,4 +93,10 @@ export class MissionBoard {
     this.missions.update((list) => [...list, mission]);
     input.value = '';
   }
+
+  protected archiveMission(id: number): void {
+    this.missions.update((list) =>
+      list.filter((mission) => mission.id !== id || mission.status === 'in-progress'),
+    );
+  }
 }
