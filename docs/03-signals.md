@@ -10,11 +10,11 @@
 - Savoir quand utiliser `effect`… et surtout **quand ne pas l'utiliser**
 - Utiliser `linkedSignal`, `untracked` et `asReadonly()` dans les cas où ils servent vraiment
 
-| Priorité | Notions |
-| --- | --- |
-| ★ cœur | `signal` (`set`, `update`), `computed`, lecture dans le template, `effect` (et quand NE PAS l'utiliser) |
-| ○ courant | `linkedSignal`, `untracked`, signals en lecture seule (`asReadonly()`) |
-| · référence | `equal` personnalisé |
+| Priorité    | Notions                                                                                                 |
+| ----------- | ------------------------------------------------------------------------------------------------------- |
+| ★ cœur      | `signal` (`set`, `update`), `computed`, lecture dans le template, `effect` (et quand NE PAS l'utiliser) |
+| ○ courant   | `linkedSignal`, `untracked`, signals en lecture seule (`asReadonly()`)                                  |
+| · référence | `equal` personnalisé                                                                                    |
 
 Fil rouge des exemples : **l'armurerie de l'Escouade**, où une recrue choisit une arme et tire avec son chargeur.
 
@@ -81,10 +81,10 @@ this.ammo.set(12);                  // ÉCRIRE une nouvelle valeur
 this.ammo.update((n) => n - 1);     // ÉCRIRE à partir de l'ancienne valeur → 11
 ```
 
-| Méthode | Quand l'utiliser | Exemple |
-| --- | --- | --- |
-| `set(valeur)` | la nouvelle valeur ne dépend **pas** de l'ancienne | `reload()` : `ammo.set(30)` |
-| `update(fn)` | la nouvelle valeur se **calcule à partir de** l'ancienne | `fire()` : `ammo.update((n) => n - 1)` |
+| Méthode       | Quand l'utiliser                                         | Exemple                                |
+| ------------- | -------------------------------------------------------- | -------------------------------------- |
+| `set(valeur)` | la nouvelle valeur ne dépend **pas** de l'ancienne       | `reload()` : `ammo.set(30)`            |
+| `update(fn)`  | la nouvelle valeur se **calcule à partir de** l'ancienne | `fire()` : `ammo.update((n) => n - 1)` |
 
 ### Dans le template
 
@@ -132,7 +132,7 @@ protected readonly isLow = computed(() => this.ammoPercent() < 20); // un comput
 ```html
 <p>Chargeur : {{ ammoPercent() }} %</p>
 @if (isLow()) {
-  <p class="warning">Munitions faibles !</p>
+<p class="warning">Munitions faibles !</p>
 }
 ```
 
@@ -152,12 +152,12 @@ Angular construit tout seul un **graphe** : qui dépend de qui. Quand une source
 
 ### Les 4 propriétés à retenir
 
-| Propriété | Ce que ça veut dire |
-| --- | --- |
-| **Lecture seule** | un `computed` n'a ni `set` ni `update`. On change ses **sources**, pas lui |
-| **Dépendances automatiques** | pas de liste à déclarer : ce que la fonction **lit** devient une dépendance |
-| **Paresseux** (*lazy*) | il ne calcule rien tant que personne ne le lit |
-| **Mémorisé** (*memoized*) | tant que ses sources ne changent pas, il renvoie la valeur déjà calculée, sans refaire le calcul, même s'il est lu 100 fois |
+| Propriété                    | Ce que ça veut dire                                                                                                         |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| **Lecture seule**            | un `computed` n'a ni `set` ni `update`. On change ses **sources**, pas lui                                                  |
+| **Dépendances automatiques** | pas de liste à déclarer : ce que la fonction **lit** devient une dépendance                                                 |
+| **Paresseux** (_lazy_)       | il ne calcule rien tant que personne ne le lit                                                                              |
+| **Mémorisé** (_memoized_)    | tant que ses sources ne changent pas, il renvoie la valeur déjà calculée, sans refaire le calcul, même s'il est lu 100 fois |
 
 > 🧠 C'est la réponse à la règle « le template affiche, la classe calcule » du module 2. Ton `@let count = missions().length` pouvait devenir `protected readonly count = computed(() => this.missions().length)` : le calcul est dans la classe, testable, et réutilisable par d'autres `computed`.
 
@@ -192,6 +192,7 @@ export class Armory {
 ```
 
 À savoir :
+
 - il s'exécute **au moins une fois** au démarrage, puis à chaque changement d'un signal lu ;
 - il doit être créé dans un **contexte d'injection** : le `constructor`, ou l'initialisation d'une propriété. Ailleurs, Angular lève une erreur (on verra les contextes d'injection au module 6) ;
 - il s'exécute **un peu après** le changement, pas immédiatement : si tu fais trois `set` d'affilée, l'effet ne tourne qu'une fois, avec la dernière valeur ;
@@ -201,10 +202,10 @@ export class Armory {
 
 Pour **synchroniser un signal avec quelque chose qui n'est pas un signal** :
 
-| Cas | Exemple |
-| --- | --- |
-| Stockage du navigateur | sauvegarder dans `localStorage` (ci-dessus) |
-| Journal / analytics | envoyer un événement « arme changée » |
+| Cas                     | Exemple                                                                                                    |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Stockage du navigateur  | sauvegarder dans `localStorage` (ci-dessus)                                                                |
+| Journal / analytics     | envoyer un événement « arme changée »                                                                      |
 | API du DOM hors Angular | mettre le focus, dessiner dans un `<canvas>`, piloter une carte ou un graphique d'une bibliothèque externe |
 
 ### ❌ Quand NE PAS utiliser `effect` (l'anti-pattern n°1)
@@ -225,6 +226,7 @@ protected readonly ammoPercent = computed(() => Math.round((this.ammo() / this.c
 ```
 
 Pourquoi l'effect est-il pire ?
+
 - **décalage** : pendant un court instant, `ammoPercent` a encore l'ancienne valeur, car l'effect tourne « un peu après » ;
 - **plus de code** et un signal modifiable qu'on pourrait changer par erreur ailleurs ;
 - **risque de boucle** : un effect qui écrit dans un signal qu'il lit lui-même se relance à l'infini.
@@ -269,10 +271,10 @@ protected selectWeapon(weapon: Weapon): void {
  weapon = Lance-flammes (100)  →  ammo = 100   (réinitialisé par la source)
 ```
 
-| | `computed` | `linkedSignal` | `signal` |
-| --- | --- | --- | --- |
-| Dérivé d'autres signals | ✅ | ✅ | ❌ |
-| Modifiable avec `set` / `update` | ❌ | ✅ | ✅ |
+|                                  | `computed` | `linkedSignal` | `signal` |
+| -------------------------------- | ---------- | -------------- | -------- |
+| Dérivé d'autres signals          | ✅         | ✅             | ❌       |
+| Modifiable avec `set` / `update` | ❌         | ✅             | ✅       |
 
 **Forme avancée** : on peut accéder à l'ancienne valeur, pour décider de **garder** la valeur actuelle quand c'est possible. Exemple typique : garder l'élément sélectionné si la liste change mais qu'il existe toujours.
 
@@ -305,7 +307,7 @@ constructor() {
 
 Sans `untracked`, l'effect se relancerait **à chaque tir**, et le journal afficherait « Changement d'arme » alors qu'on n'a fait que tirer.
 
-*Quand y penser* : dans un `effect`, dès que tu lis un signal « pour information » et que son changement ne doit pas relancer l'action.
+_Quand y penser_ : dans un `effect`, dès que tu lis un signal « pour information » et que son changement ne doit pas relancer l'action.
 
 ---
 
@@ -337,7 +339,7 @@ const position = signal({ x: 0, y: 0 }, { equal: (a, b) => a.x === b.x && a.y ==
 position.set({ x: 0, y: 0 }); // nouvel objet, mais « égal » → aucune notification
 ```
 
-*Quand y penser* : quand un signal reçoit souvent un **nouvel objet identique** (par exemple une réponse serveur qui n'a pas changé) et que tu veux éviter des recalculs inutiles.
+_Quand y penser_ : quand un signal reçoit souvent un **nouvel objet identique** (par exemple une réponse serveur qui n'a pas changé) et que tu veux éviter des recalculs inutiles.
 
 ---
 
@@ -348,25 +350,27 @@ position.set({ x: 0, y: 0 }); // nouvel objet, mais « égal » → aucune notif
 > ```ts
 > // AVANT
 > export class ArmoryComponent {
->   ammo = 30;                                    // propriété simple
->   get ammoPercent() { return (this.ammo / 30) * 100; } // getter : recalculé à CHAQUE vérification
+>   ammo = 30; // propriété simple
+>   get ammoPercent() {
+>     return (this.ammo / 30) * 100;
+>   } // getter : recalculé à CHAQUE vérification
 >
 >   constructor(private cdr: ChangeDetectorRef) {}
 >   fire() {
 >     this.ammo--;
->     this.cdr.markForCheck();                    // parfois nécessaire pour forcer l'affichage
+>     this.cdr.markForCheck(); // parfois nécessaire pour forcer l'affichage
 >   }
 > }
 > ```
 >
-> | Ancien | Moderne |
-> | --- | --- |
-> | `ammo = 30` (propriété) + zone.js | `ammo = signal(30)` |
-> | `this.ammo--` | `this.ammo.update((n) => n - 1)` |
-> | `get ammoPercent()` (getter) | `ammoPercent = computed(() => …)` |
-> | `ngOnChanges` pour réagir à un changement d'input | `computed` ou `linkedSignal` à partir de l'input (module 4) |
-> | `BehaviorSubject` dans un service pour partager de l'état | `signal` privé + `asReadonly()` (modules 6 et 17) |
-> | `ChangeDetectorRef.markForCheck()` | inutile avec les signals |
+> | Ancien                                                    | Moderne                                                     |
+> | --------------------------------------------------------- | ----------------------------------------------------------- |
+> | `ammo = 30` (propriété) + zone.js                         | `ammo = signal(30)`                                         |
+> | `this.ammo--`                                             | `this.ammo.update((n) => n - 1)`                            |
+> | `get ammoPercent()` (getter)                              | `ammoPercent = computed(() => …)`                           |
+> | `ngOnChanges` pour réagir à un changement d'input         | `computed` ou `linkedSignal` à partir de l'input (module 4) |
+> | `BehaviorSubject` dans un service pour partager de l'état | `signal` privé + `asReadonly()` (modules 6 et 17)           |
+> | `ChangeDetectorRef.markForCheck()`                        | inutile avec les signals                                    |
 
 ---
 
@@ -448,24 +452,22 @@ export class ArmoryPanel {
 
 <div class="weapons">
   @for (w of weapons; track w.id) {
-    <button
-      type="button"
-      [attr.aria-pressed]="w.id === weapon().id"
-      (click)="selectWeapon(w.id)"
-    >
-      {{ w.name }}
-    </button>
+  <button type="button" [attr.aria-pressed]="w.id === weapon().id" (click)="selectWeapon(w.id)">
+    {{ w.name }}
+  </button>
   }
 </div>
 
 <!-- §2 : lire un signal dans le template = s'y abonner automatiquement -->
-<p>{{ weapon().name }} : {{ ammo() }} / {{ weapon().capacity }} munitions ({{ ammoPercent() }} %)</p>
+<p>
+  {{ weapon().name }} : {{ ammo() }} / {{ weapon().capacity }} munitions ({{ ammoPercent() }} %)
+</p>
 
 <!-- §3 : des computed utilisés comme conditions -->
 @if (isEmpty()) {
-  <p class="alert">Chargeur vide ! Rechargez.</p>
+<p class="alert">Chargeur vide ! Rechargez.</p>
 } @else if (isLow()) {
-  <p class="warning">Munitions faibles.</p>
+<p class="warning">Munitions faibles.</p>
 }
 
 <button type="button" [disabled]="isEmpty()" (click)="fire()">Tirer</button>

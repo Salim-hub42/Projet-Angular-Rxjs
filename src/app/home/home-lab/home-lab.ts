@@ -18,5 +18,11 @@ export class HomeLab {
       label: 'Angular',
       path: '/02-composants-templates',
     },
+    {
+      number: 3,
+      title: 'Signals',
+      label: 'Angular',
+      path: '/03-signals',
+    },
   ];
 }
