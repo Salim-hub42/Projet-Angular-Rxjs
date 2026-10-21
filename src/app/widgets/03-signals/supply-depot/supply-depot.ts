@@ -48,4 +48,8 @@ export class SupplyDepot {
       totalWeight: supply.quantity * supply.unitWeight,
     })),
   );
+
+  protected depart(): void {
+    console.log('Le camion peut partir !');
+  }
 }

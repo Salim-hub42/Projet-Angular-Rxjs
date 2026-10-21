@@ -33,7 +33,7 @@
   aria-valuemin="0"
   aria-valuemax="100"
   [attr.aria-valuenow]="loadPercent()"
-  [attr.aria-label]="'Chargement du camion : ' + loadPercent() + '%'"
+  aria-label="Chargement du camion"
 >
   <div class="progress-fill" [style.width.%]="loadPercent()"></div>
 </div>
@@ -42,4 +42,4 @@
   Capacité du camion : {{ truckCapacity() }} kg / Poids total du chargement : {{ totalWeight() }} kg
 </p>
 
-<button [disabled]="!canDepart()" (click)="canDepart()">Départ</button>
+<button type="button" [disabled]="!canDepart()" (click)="depart()">Départ du convoi</button>
