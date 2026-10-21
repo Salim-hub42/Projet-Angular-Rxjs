@@ -16,7 +16,7 @@ interface Supply {
 })
 export class SupplyDepot {
   protected readonly supplies = signal<Supply[]>([
-    { id: 1, name: 'Rations', quantity: 100, unitWeight: 2 },
+    { id: 1, name: 'Rations', quantity: 100, unitWeight: 3 },
     { id: 2, name: 'Munitions', quantity: 150, unitWeight: 2.5 },
     { id: 3, name: "Cellules d'énergie", quantity: 10, unitWeight: 1.5 },
     { id: 4, name: 'Médikits', quantity: 25, unitWeight: 3 },
@@ -40,5 +40,12 @@ export class SupplyDepot {
   // Check if the truck can depart (not overloaded and has supplies)
   protected readonly canDepart = computed(
     () => !this.isOverloaded() && this.supplies().some((supply) => supply.quantity > 0),
+  );
+
+  protected readonly supplyLines = computed(() =>
+    this.supplies().map((supply) => ({
+      ...supply,
+      totalWeight: supply.quantity * supply.unitWeight,
+    })),
   );
 }

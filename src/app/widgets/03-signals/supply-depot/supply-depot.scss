@@ -1,13 +1,28 @@
-// Bannière : le conteneur fixe la forme, l'image en mode "fill" s'y adapte
+// Bannière du camion : l'image (en portrait) est recadrée sur le véhicule, en mode "fill"
 .banner {
   position: relative; // obligatoire en mode "fill" : l'image se positionne par rapport à lui
-  aspect-ratio: 21 / 9; // bandeau large, quelle que soit la largeur de l'écran
+  max-width: 600px; // l'image fait 736 px de large : on reste en dessous pour qu'elle reste nette
+  aspect-ratio: 4 / 3; // assez haut pour voir le véhicule en entier, des antennes aux roues
   margin-bottom: 1.5rem;
   clip-path: var(--hud-clip); // coins coupés, comme les panneaux du thème
   border-bottom: 3px solid var(--hud-accent);
 
   img {
-    object-fit: cover; // remplit le cadre sans se déformer (les bords sont rognés)
-    object-position: center 55%; // cadre la ligne de front : les soldats à gauche, les aliens à droite
+    object-fit: cover; // remplit le cadre sans se déformer (le ciel et le sable sont rognés)
+    object-position: center 50%; // centre le cadrage sur le véhicule
   }
+}
+
+// Barre de progression : le conteneur dessine le fond, toujours sur toute la largeur
+.progress {
+  height: 0.6rem;
+  background: var(--hud-bg-deep);
+  border: 1px solid var(--hud-line);
+  overflow: hidden; // le remplissage ne déborde jamais du conteneur
+}
+// Le remplissage : sa largeur vient de [style.width.%] dans le template, sa couleur du statut
+.progress-fill {
+  height: 100%; // sans hauteur, une <div> vide est invisible
+  background: var(--hud-glow);
+  transition: width 0.3s ease; // la barre glisse quand progress change
 }

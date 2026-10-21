@@ -1,11 +1,45 @@
 <h1>Poste de ravitaillement</h1>
 
-<!-- Bannière : mode "fill", l'image remplit son conteneur (.banner) au lieu d'avoir une taille fixe -->
+<!-- Bannière : mode "fill", l'image remplit son conteneur (.banner) et y est recadrée -->
 <div class="banner">
   <img
-    ngSrc="images/iron-munitions.jpg"
+    ngSrc="images/truck-iron.jpg"
     fill
     priority
-    alt="Une escouade de soldats en armure tire au laser et au lance-roquettes sur une armée de robots aliens, sur une planète violette"
+    alt="Un véhicule blindé à six roues, aux lumières violettes, stationné sur une dune sous un ciel étoilé"
   />
 </div>
+<ul>
+  @for (supply of supplyLines(); track supply.id) {
+    <li>
+      {{ supply.name }} - {{ supply.quantity }} unités - pour un poids total de
+      {{ supply.totalWeight }} kg
+    </li>
+  }
+</ul>
+
+@if (isOverloaded()) {
+  <p class="status">Attention : le camion est surchargé !</p>
+} @else if (totalWeight() === 0) {
+  <p class="status">Le camion est vide.</p>
+} @else {
+  <p class="status">Le camion est prêt à partir.</p>
+}
+
+<!-- Barre de progression : un conteneur (le fond) et un remplissage (la partie pleine) -->
+<div
+  class="progress"
+  role="progressbar"
+  aria-valuemin="0"
+  aria-valuemax="100"
+  [attr.aria-valuenow]="loadPercent()"
+  [attr.aria-label]="'Chargement du camion : ' + loadPercent() + '%'"
+>
+  <div class="progress-fill" [style.width.%]="loadPercent()"></div>
+</div>
+
+<p>
+  Capacité du camion : {{ truckCapacity() }} kg / Poids total du chargement : {{ totalWeight() }} kg
+</p>
+
+<button [disabled]="!canDepart()" (click)="canDepart()">Départ</button>
