@@ -22,7 +22,7 @@ export class SupplyDepot {
     { id: 4, name: 'Médikits', quantity: 25, unitWeight: 3 },
   ]);
 
-  protected readonly truckCapacity = signal(1200);
+  protected readonly truckCapacity = signal(800);
 
   // Total weight of all supplies in the truck
   protected readonly totalWeight = computed(() =>
@@ -48,6 +48,43 @@ export class SupplyDepot {
       totalWeight: supply.quantity * supply.unitWeight,
     })),
   );
+
+  protected addUnit(id: number): void {
+    this.supplies.update((list) => {
+      return list.map((supply) => {
+        if (supply.id !== id) {
+          return supply;
+        }
+        return {
+          ...supply,
+          quantity: supply.quantity + 1,
+        };
+      });
+    });
+  }
+
+  protected removeUnit(id: number): void {
+    this.supplies.update((list) => {
+      return list.map((supply) => {
+        if (supply.id !== id) {
+          return supply;
+        }
+        return {
+          ...supply,
+          quantity: Math.max(supply.quantity - 1, 0),
+        };
+      });
+    });
+  }
+
+  protected emptyTruck(): void {
+    this.supplies.update((list) => {
+      return list.map((supply) => ({
+        ...supply,
+        quantity: 0,
+      }));
+    });
+  }
 
   protected depart(): void {
     console.log('Le camion peut partir !');

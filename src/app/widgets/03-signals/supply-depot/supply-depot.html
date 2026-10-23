@@ -14,6 +14,22 @@
     <li>
       {{ supply.name }} - {{ supply.quantity }} unités - pour un poids total de
       {{ supply.totalWeight }} kg
+      <!-- aria-label : commence par le texte visible (Label in Name), puis précise la ressource -->
+      <button
+        type="button"
+        [attr.aria-label]="'+ 1 unité de ' + supply.name"
+        (click)="addUnit(supply.id)"
+      >
+        + 1 unité
+      </button>
+      <button
+        type="button"
+        [attr.aria-label]="'- 1 unité de ' + supply.name"
+        [disabled]="supply.quantity <= 0"
+        (click)="removeUnit(supply.id)"
+      >
+        - 1 unité
+      </button>
     </li>
   }
 </ul>
@@ -43,3 +59,6 @@
 </p>
 
 <button type="button" [disabled]="!canDepart()" (click)="depart()">Départ du convoi</button>
+<button type="button" [disabled]="totalWeight() === 0" (click)="emptyTruck()">
+  Vider le camion
+</button>
