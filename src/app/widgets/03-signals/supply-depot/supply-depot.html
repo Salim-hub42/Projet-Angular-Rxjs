@@ -9,30 +9,60 @@
     alt="Un véhicule blindé à six roues, aux lumières violettes, stationné sur une dune sous un ciel étoilé"
   />
 </div>
-<ul>
-  @for (supply of supplyLines(); track supply.id) {
-    <li>
-      {{ supply.name }} - {{ supply.quantity }} unités - pour un poids total de
-      {{ supply.totalWeight }} kg
-      <!-- aria-label : commence par le texte visible (Label in Name), puis précise la ressource -->
-      <button
-        type="button"
-        [attr.aria-label]="'+ 1 unité de ' + supply.name"
-        (click)="addUnit(supply.id)"
-      >
-        + 1 unité
-      </button>
-      <button
-        type="button"
-        [attr.aria-label]="'- 1 unité de ' + supply.name"
-        [disabled]="supply.quantity <= 0"
-        (click)="removeUnit(supply.id)"
-      >
-        - 1 unité
-      </button>
-    </li>
-  }
-</ul>
+<!-- Deux panneaux côte à côte : le choix du véhicule (étroit) et le chargement (large) -->
+<div class="row-vehicle">
+  <section class="panel">
+    <h2>Véhicule</h2>
+    <ul class="vehicle-list">
+      @for (vehicle of vehicles; track vehicle.id) {
+        <li>
+          <button
+            type="button"
+            [attr.aria-pressed]="selectedVehicle().id === vehicle.id"
+            (click)="selectVehicle(vehicle)"
+          >
+            {{ vehicle.name }}
+          </button>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2>Chargement</h2>
+    <ul class="supply-list">
+      @for (supply of supplyLines(); track supply.id) {
+        <li>
+          <!-- Le texte d'un côté, les boutons de l'autre : deux blocs que le flex peut placer -->
+          <div class="supply-text">
+            <span class="supply-name">{{ supply.name }}</span>
+            <span class="supply-info">
+              {{ supply.quantity }} unités · {{ supply.totalWeight }} kg
+            </span>
+          </div>
+          <div class="supply-actions">
+            <!-- aria-label : commence par le texte visible (Label in Name), puis précise la ressource -->
+            <button
+              type="button"
+              [attr.aria-label]="'+ 1 unité de ' + supply.name"
+              (click)="addUnit(supply.id)"
+            >
+              + 1 unité
+            </button>
+            <button
+              type="button"
+              [attr.aria-label]="'- 1 unité de ' + supply.name"
+              [disabled]="supply.quantity <= 0"
+              (click)="removeUnit(supply.id)"
+            >
+              - 1 unité
+            </button>
+          </div>
+        </li>
+      }
+    </ul>
+  </section>
+</div>
 
 @if (isOverloaded()) {
   <p class="status">Attention : le camion est surchargé !</p>

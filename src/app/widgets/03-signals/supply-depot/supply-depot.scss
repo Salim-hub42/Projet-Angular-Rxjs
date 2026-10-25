@@ -13,6 +13,94 @@
   }
 }
 
+// Les deux panneaux côte à côte : la grille donne 1 part aux véhicules, 2 parts au chargement
+.row-vehicle {
+  display: grid;
+  grid-template-columns: minmax(12rem, 1fr) 2fr;
+  gap: 1.5rem;
+  align-items: start; // chaque panneau garde sa propre hauteur
+  margin-bottom: 1.5rem;
+
+  // Écran étroit (téléphone) : les panneaux passent l'un sous l'autre
+  @media (max-width: 720px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Un panneau du thème : fond, bordure néon et coins coupés
+.panel {
+  padding: 1rem 1.2rem;
+  background: var(--hud-surface);
+  border: var(--hud-border);
+  clip-path: var(--hud-clip);
+
+  h2 {
+    font-size: 1.1rem;
+    color: var(--hud-accent-ink); // orange lisible en texte, dans les deux thèmes
+  }
+}
+
+// On retire les puces et les marges par défaut des listes, puis on empile les lignes
+.vehicle-list,
+.supply-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+// Les véhicules : des boutons pleine largeur, comme un menu
+.vehicle-list button {
+  width: 100%;
+  text-align: left;
+
+  // Le véhicule choisi est rempli. On cible l'attribut ARIA lui-même : pas besoin d'une classe
+  // en plus, et le style ne peut jamais contredire ce qu'entend le lecteur d'écran
+  &[aria-pressed='true'] {
+    background: var(--hud-glow);
+    color: var(--hud-surface);
+  }
+}
+
+// Une ressource : le texte à gauche, les boutons à droite. flex-wrap fait passer les boutons
+// à la ligne quand la place manque (écran étroit)
+.supply-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding: 0.6rem 0.8rem;
+  background: var(--hud-bg);
+  border-left: 3px solid var(--hud-line);
+}
+
+.supply-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.supply-name {
+  font-weight: 600;
+}
+
+.supply-info {
+  color: var(--hud-ink-soft);
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums; // chiffres de même largeur : ils ne « dansent » pas au clic
+}
+
+.supply-actions {
+  display: flex;
+  gap: 0.4rem;
+
+  button {
+    padding: 0.3rem 0.7rem; // un peu plus compacts que les boutons principaux
+  }
+}
+
 // Barre de progression : le conteneur dessine le fond, toujours sur toute la largeur
 .progress {
   height: 0.6rem;
