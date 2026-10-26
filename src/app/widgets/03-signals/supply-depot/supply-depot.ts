@@ -28,6 +28,11 @@ const VEHICLES: Vehicle[] = [
   { id: 3, name: 'Transporteur blindé griffon', capacity: 1200 },
 ];
 
+// Step used by the buttons that change the allowed load, and the lowest allowed load
+// (never 0: loadPercent would divide by zero)
+const LOAD_STEP = 50;
+const MIN_LOAD = 50;
+
 @Component({
   selector: 'app-supply-depot',
   imports: [NgOptimizedImage],
@@ -60,6 +65,14 @@ export class SupplyDepot {
   protected readonly canDepart = computed(
     () => !this.isOverloaded() && this.supplies().some((supply) => supply.quantity > 0),
   );
+
+  // Check if the allowed load can still go up (it never exceeds the vehicle's capacity)
+  protected readonly canIncreaseCapacity = computed(
+    () => this.truckCapacity() < this.selectedVehicle().capacity,
+  );
+
+  // Check if the allowed load can still go down (it never goes below MIN_LOAD)
+  protected readonly canDecreaseCapacity = computed(() => this.truckCapacity() > MIN_LOAD);
 
   // List of supplies with their total weight
   protected readonly supplyLines = computed(() =>
@@ -114,6 +127,16 @@ export class SupplyDepot {
         };
       });
     });
+  }
+
+  // Increase the allowed load by LOAD_STEP kg, up to the selected vehicle's capacity
+  protected addCapacity(): void {
+    this.truckCapacity.update((cap) => Math.min(cap + LOAD_STEP, this.selectedVehicle().capacity));
+  }
+
+  // Decrease the allowed load by LOAD_STEP kg, down to MIN_LOAD kg
+  protected removeCapacity(): void {
+    this.truckCapacity.update((cap) => Math.max(cap - LOAD_STEP, MIN_LOAD));
   }
 
   // Empty the truck by setting all supply quantities to zero

@@ -26,6 +26,21 @@
         </li>
       }
     </ul>
+    <!-- Le réglage de la charge : la valeur, puis les deux boutons, regroupés dans un même bloc -->
+    <div class="load-control">
+      <!-- aria-live : le lecteur d'écran annonce la nouvelle valeur après chaque clic -->
+      <p class="load-value" aria-live="polite">
+        Charge autorisée : {{ truckCapacity() }} kg (max : {{ selectedVehicle().capacity }} kg)
+      </p>
+      <div class="load-buttons">
+        <button type="button" [disabled]="!canDecreaseCapacity()" (click)="removeCapacity()">
+          Diminuer la capacité
+        </button>
+        <button type="button" [disabled]="!canIncreaseCapacity()" (click)="addCapacity()">
+          Augmenter la capacité
+        </button>
+      </div>
+    </div>
   </section>
 
   <section class="panel">
@@ -84,9 +99,7 @@
   <div class="progress-fill" [style.width.%]="loadPercent()"></div>
 </div>
 
-<p>
-  Capacité du camion : {{ truckCapacity() }} kg / Poids total du chargement : {{ totalWeight() }} kg
-</p>
+<p>Poids total : {{ totalWeight() }} / {{ truckCapacity() }} kg autorisés</p>
 
 <button type="button" [disabled]="!canDepart()" (click)="depart()">Départ du convoi</button>
 <button type="button" [disabled]="totalWeight() === 0" (click)="emptyTruck()">

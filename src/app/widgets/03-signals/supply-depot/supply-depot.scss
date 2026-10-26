@@ -64,6 +64,31 @@
   }
 }
 
+// Le réglage de la charge, sous la liste des véhicules : un trait le sépare de la liste
+.load-control {
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px dashed var(--hud-line);
+}
+
+.load-value {
+  margin: 0 0 0.6rem;
+  font-variant-numeric: tabular-nums;
+}
+
+// Les deux boutons partagent la largeur à parts égales, et passent l'un sous l'autre
+// quand la colonne est trop étroite pour les mettre côte à côte
+.load-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  button {
+    flex: 1 1 10rem; // grandit et rétrécit à égalité, mais pas en dessous de 10rem
+    padding: 0.4rem 0.6rem;
+  }
+}
+
 // Une ressource : le texte à gauche, les boutons à droite. flex-wrap fait passer les boutons
 // à la ligne quand la place manque (écran étroit)
 .supply-list li {
