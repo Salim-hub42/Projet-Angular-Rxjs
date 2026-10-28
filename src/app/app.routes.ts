@@ -7,6 +7,11 @@ export const routes: Routes = [
       import('./tests/component-test/component-test').then((m) => m.ComponentTest),
   },
   {
+    path: '04-communication',
+    loadComponent: () =>
+      import('./widgets/04-communication/squad-roster/squad-roster').then((m) => m.SquadRoster),
+  },
+  {
     path: '03-signals',
     loadComponent: () =>
       import('./widgets/03-signals/supply-depot/supply-depot').then((m) => m.SupplyDepot),

@@ -24,5 +24,11 @@ export class HomeLab {
       label: 'Angular',
       path: '/03-signals',
     },
+    {
+      number: 4,
+      title: 'Communication entre composants',
+      label: 'Angular',
+      path: '/04-communication',
+    },
   ];
 }
