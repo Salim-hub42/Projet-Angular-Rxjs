@@ -1,0 +1,20 @@
+// La bannière : jamais plus large que l'image (776 px, pour rester nette), et réduite sur
+// les petits écrans. height: auto garde les proportions, sinon l'image serait déformée
+.banner {
+  display: block;
+  width: 100%;
+  max-width: 776px;
+  height: auto;
+  margin-bottom: 1.5rem;
+  clip-path: var(--hud-clip); // coins coupés, comme les panneaux du thème
+  border-bottom: 3px solid var(--hud-accent);
+}
+
+// La grille des cartes : chaque colonne fait au moins 16rem. auto-fill crée autant de colonnes
+// qu'il en tient dans la largeur : 3 sur un grand écran, 1 sur un téléphone, sans media query
+.roster {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: 1rem;
+  margin-top: 1rem; // un peu d'air entre le bouton « Vue compacte » et les cartes
+}

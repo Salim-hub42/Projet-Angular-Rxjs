@@ -1,1 +1,11 @@
-<p>component-enfant works!</p>
+<article>
+  <h3>{{ book().title }}</h3>
+  <p>{{ statusLabel() }}</p>
+  <button
+    type="button"
+    [attr.aria-label]="buttonLabel() + ' ' + book().title"
+    (click)="requestToggle()"
+  >
+    {{ buttonLabel() }}
+  </button>
+</article>

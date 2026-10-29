@@ -1,1 +1,5 @@
-<p>{{ ammo() }}</p>
+<h1>Bibliothèque</h1>
+
+@for (book of books(); track book.id) {
+  <app-component-enfant [book]="book" (toggleLoan)="toggleBookLoan($event)" />
+}

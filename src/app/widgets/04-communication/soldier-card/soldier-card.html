@@ -1,1 +1,30 @@
-<p>soldier-card works!</p>
+<!-- [class.compact] : la carte se resserre en vue compacte (moins de marges) -->
+<article class="card" [class.compact]="compact()">
+  <span class="soldier-name">{{ soldier().name }}</span>
+
+  <!-- La santé : la barre et le chiffre côte à côte. Le chiffre permet de lire la valeur
+       sans deviner la longueur de la barre -->
+  <div class="health">
+    <div
+      class="progress"
+      role="progressbar"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      [attr.aria-valuenow]="soldier().health"
+      [attr.aria-label]="'Santé du soldat : ' + soldier().name"
+    >
+      <div class="progress__fill" [style.width.%]="soldier().health"></div>
+    </div>
+    <!-- aria-hidden : le lecteur d'écran a déjà la valeur grâce à aria-valuenow -->
+    <span class="health__value" aria-hidden="true">{{ soldier().health }} %</span>
+  </div>
+
+  <!-- Les détails, cachés en vue compacte. Le statut n'a pas d'aria-hidden : il n'est donné
+       nulle part ailleurs -->
+  @if (!compact()) {
+    <div class="details">
+      <p class="soldier-role">{{ soldier().role }}</p>
+      <span class="health__status">{{ healthStatus() }}</span>
+    </div>
+  }
+</article>

@@ -1,1 +1,21 @@
 <h1>Registre de l'escouade</h1>
+
+<!-- Bannière : mode classique (width / height = taille réelle de l'image). Le CSS la réduit
+     sur les petits écrans en gardant ses proportions -->
+<img
+  class="banner"
+  ngSrc="images/troupes.jpg"
+  width="776"
+  height="395"
+  priority
+  alt="Trois membres de l'escouade sur une plaine enneigée : un combattant musclé aux cheveux blancs armé d'un canon, un robot blindé au bras-canon et un orc vert équipé d'un réacteur dorsal et d'un lance-roquettes"
+/>
+<button type="button" [attr.aria-pressed]="compactView()" (click)="toggleCompactView()">
+  Vue compacte
+</button>
+<!-- La grille des cartes : autant de colonnes que la largeur le permet -->
+<div class="roster">
+  @for (soldier of soldiers(); track soldier.id) {
+    <app-soldier-card [soldier]="soldier" [compact]="compactView()" />
+  }
+</div>

@@ -1,0 +1,88 @@
+// :host = la balise <app-soldier-card> elle-même. Une balise de composant est « inline » par
+// défaut, comme un <span> : on la passe en bloc pour qu'elle prenne toute la largeur de sa case
+:host {
+  display: block;
+}
+
+// La carte : un panneau du thème, avec une bande néon à gauche
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  height: 100%; // toutes les cartes d'une même rangée ont la même hauteur
+  padding: 1rem 1.1rem;
+  background: var(--hud-surface);
+  border: var(--hud-border);
+  border-left: 4px solid var(--hud-glow);
+  clip-path: var(--hud-clip); // coins coupés, comme les autres panneaux
+}
+
+// Vue compacte : mêmes informations essentielles, mais moins d'espace autour
+.card.compact {
+  gap: 0.3rem;
+  padding: 0.5rem 0.8rem;
+}
+
+// Le nom : la police des titres du thème, en capitales
+.soldier-name {
+  font-family: var(--font-title);
+  font-size: 1.05rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+// La ligne de santé : la barre prend toute la place disponible, le chiffre reste à sa taille
+.health {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+// Le fond de la barre : sans hauteur, une <div> vide est invisible
+.progress {
+  flex: 1; // occupe toute la largeur restante à côté du chiffre
+  height: 0.6rem;
+  background: var(--hud-bg-deep);
+  border: 1px solid var(--hud-line);
+  overflow: hidden; // le remplissage ne déborde jamais du fond
+}
+
+// Le remplissage : sa largeur vient de [style.width.%] dans le template
+.progress__fill {
+  height: 100%;
+  background: var(--hud-glow);
+  transition: width 0.3s ease; // la barre glisse quand la santé change (étape 4 : « Soigner »)
+}
+
+.health__value {
+  min-width: 3.5rem; // largeur fixe : les barres restent alignées d'une carte à l'autre
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+// Les détails : la spécialité à gauche, le statut à droite
+.details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+// La spécialité : une petite étiquette encadrée
+.soldier-role {
+  margin: 0; // un <p> a des marges par défaut : on les retire pour garder l'alignement
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--hud-line);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--hud-ink-soft);
+}
+
+// Le statut : texte secondaire, en petites capitales comme les libellés du thème
+.health__status {
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--hud-ink-soft);
+}
