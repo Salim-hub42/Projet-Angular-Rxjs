@@ -27,4 +27,7 @@
       <span class="health__status">{{ healthStatus() }}</span>
     </div>
   }
+  <button type="button" (click)="requestHeal()" [aria-label]="'Soigner ' + soldier().name">
+    Soigner
+  </button>
 </article>

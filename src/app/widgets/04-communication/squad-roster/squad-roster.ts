@@ -3,6 +3,8 @@ import { Component, signal } from '@angular/core';
 import { Soldier } from '../soldier';
 import { SoldierCard } from '../soldier-card/soldier-card';
 
+const HEAL_AMOUNT = 20;
+const MAX_HEALTH = 100;
 @Component({
   selector: 'app-squad-roster',
   imports: [NgOptimizedImage, SoldierCard],
@@ -22,5 +24,16 @@ export class SquadRoster {
 
   protected toggleCompactView(): void {
     this.compactView.update((isCompact) => !isCompact);
+  }
+
+  protected careSoldier(id: number): void {
+    this.soldiers.update((list) =>
+      list.map((soldier) => {
+        if (soldier.id !== id) {
+          return soldier;
+        }
+        return { ...soldier, health: Math.min(soldier.health + HEAL_AMOUNT, MAX_HEALTH) };
+      }),
+    );
   }
 }

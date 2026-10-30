@@ -16,6 +16,10 @@
 <!-- La grille des cartes : autant de colonnes que la largeur le permet -->
 <div class="roster">
   @for (soldier of soldiers(); track soldier.id) {
-    <app-soldier-card [soldier]="soldier" [compact]="compactView()" />
+    <app-soldier-card
+      [soldier]="soldier"
+      [compact]="compactView()"
+      (healSoldier)="careSoldier($event)"
+    />
   }
 </div>

@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, computed, input } from '@angular/core';
+import { booleanAttribute, Component, computed, input, output } from '@angular/core';
 import { Soldier } from '../soldier';
 
 const CRITICAL_HEALTH = 30;
@@ -14,6 +14,8 @@ export class SoldierCard {
 
   readonly compact = input(false, { transform: booleanAttribute });
 
+  readonly healSoldier = output<number>();
+
   protected readonly healthStatus = computed(() => {
     const health = this.soldier().health;
     if (health < CRITICAL_HEALTH) {
@@ -24,4 +26,8 @@ export class SoldierCard {
     }
     return 'Opérationnel';
   });
+
+  protected requestHeal(): void {
+    this.healSoldier.emit(this.soldier().id);
+  }
 }
