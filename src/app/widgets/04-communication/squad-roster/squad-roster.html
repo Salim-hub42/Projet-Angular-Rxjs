@@ -20,6 +20,8 @@
       [soldier]="soldier"
       [compact]="compactView()"
       (healSoldier)="careSoldier($event)"
+      (toggleDeploy)="toggleDeployment($event)"
+      (dismiss)="dismissSoldier($event)"
     />
   }
 </div>

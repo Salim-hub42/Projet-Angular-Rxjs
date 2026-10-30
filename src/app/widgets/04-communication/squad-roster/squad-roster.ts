@@ -36,4 +36,19 @@ export class SquadRoster {
       }),
     );
   }
+
+  protected toggleDeployment(id: number): void {
+    this.soldiers.update((list) =>
+      list.map((soldier) => {
+        if (soldier.id !== id) {
+          return soldier;
+        }
+        return { ...soldier, deployed: !soldier.deployed };
+      }),
+    );
+  }
+
+  protected dismissSoldier(id: number): void {
+    this.soldiers.update((list) => list.filter((soldier) => soldier.id !== id));
+  }
 }

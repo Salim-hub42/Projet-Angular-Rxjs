@@ -66,6 +66,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
+  flex-wrap: wrap; // 3 étiquettes : si la carte est trop étroite, elles passent à la ligne
 }
 
 // La spécialité : une petite étiquette encadrée
@@ -85,4 +86,36 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--hud-ink-soft);
+}
+
+// Le déploiement : une étiquette sur toute la largeur, pour ne pas tasser les deux autres
+.deployment {
+  flex-basis: 100%; // dans un flex qui passe à la ligne, 100 % = une ligne à elle seule
+  padding: 0.15rem 0.5rem;
+  border-left: 3px solid var(--hud-line);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--hud-ink-soft);
+}
+
+// En mission : orange du thème. --hud-accent-ink est la variante lisible en texte (contraste AA)
+.deployment--active {
+  border-left-color: var(--hud-accent);
+  color: var(--hud-accent-ink);
+}
+
+// Les boutons : sur une ligne, poussés en bas de la carte
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: auto; // dans une colonne flex, prend tout l'espace libre au-dessus : les boutons
+  // restent alignés en bas, même si les cartes d'une rangée n'ont pas le même contenu
+
+  button {
+    flex: 1; // les boutons se partagent la largeur
+    padding: 0.35rem 0.6rem; // un peu plus serrés que les boutons globaux
+    font-size: 0.75rem;
+  }
 }

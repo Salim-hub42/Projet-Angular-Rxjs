@@ -71,6 +71,18 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Use the `providedIn: 'root'` option for singleton services
 - Use the `inject()` function instead of constructor injection
 
+## Outils MCP Angular
+
+- Avant d'expliquer une API Angular dans une leçon, vérifier avec `search_documentation`
+  (ma mémoire peut être antérieure à Angular 22).
+- Au début d'un module, appeler `get_best_practices` pour aligner les exemples sur la version installée.
+- Pour vérifier que l'exemple générique compile : `devserver_start` + `devserver_wait_for_build`,
+  puis `devserver_stop` à la fin.
+- Pour lancer les tests : `run_target` avec `test` (Vitest).
+- Ne PAS utiliser `ai_tutor` : ce projet a son propre parcours pédagogique (ci-dessous).
+- Pendant un exercice, ne pas lancer build/tests sur mon code sauf si je le demande
+  (les erreurs affichées révéleraient la solution).
+
 # Angular 22 & RxJS Lab — Formation complète par la pratique
 
 ## Objectif du projet

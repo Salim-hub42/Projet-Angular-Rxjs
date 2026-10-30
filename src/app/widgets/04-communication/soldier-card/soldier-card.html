@@ -25,9 +25,28 @@
     <div class="details">
       <p class="soldier-role">{{ soldier().role }}</p>
       <span class="health__status">{{ healthStatus() }}</span>
+      <!-- [class.deployment--active] : l'étiquette passe en orange quand le soldat est en mission -->
+      <span class="deployment" [class.deployment--active]="soldier().deployed">
+        Statut : {{ deploymentStatus() }}
+      </span>
     </div>
   }
-  <button type="button" (click)="requestHeal()" [aria-label]="'Soigner ' + soldier().name">
-    Soigner
-  </button>
+
+  <!-- Les actions : regroupées en bas de la carte. Chaque aria-label commence par le texte
+       visible du bouton, puis précise le soldat (« Soigner Sergent Bleu ») -->
+  <div class="actions">
+    <button type="button" (click)="requestHeal()" [aria-label]="'Soigner ' + soldier().name">
+      Soigner
+    </button>
+    <button
+      type="button"
+      (click)="requestToggleDeploy()"
+      [aria-label]="deployLabel() + ' ' + soldier().name"
+    >
+      {{ deployLabel() }}
+    </button>
+    <button type="button" (click)="requestDismiss()" [aria-label]="'Renvoyer ' + soldier().name">
+      Renvoyer
+    </button>
+  </div>
 </article>
