@@ -4,7 +4,7 @@ export const routes: Routes = [
   {
     path: 'test-component',
     loadComponent: () =>
-      import('./tests/component-test/component-test').then((m) => m.ComponentTest),
+      import('./tests/component-test/component-test-parent').then((m) => m.ComponentTestParent),
   },
   {
     path: '04-communication',
