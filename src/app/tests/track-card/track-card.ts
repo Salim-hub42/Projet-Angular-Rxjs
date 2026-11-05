@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { booleanAttribute, Component, computed, input } from '@angular/core';
 import { Track } from '../model';
 
 @Component({
@@ -10,6 +10,7 @@ import { Track } from '../model';
 export class TrackCard {
   readonly track = input.required<Track>();
   readonly rank = input.required({ transform: (value: number) => value + 1 });
+  readonly isCurrent = input(false, { transform: booleanAttribute, alias: 'current' });
 
   protected readonly formattedDuration = computed(() => {
     const duration = this.track().duration;

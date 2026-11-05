@@ -18,6 +18,18 @@
   clip-path: var(--hud-clip); // coins coupés, comme les autres panneaux
 }
 
+// Le morceau en cours : bande orange plus épaisse et fond légèrement teinté. L'épaisseur
+// compte : la différence reste visible pour une personne qui distingue mal les couleurs
+.card.current {
+  background: color-mix(in srgb, var(--hud-accent) 10%, var(--hud-surface));
+  border-left: 8px solid var(--hud-accent);
+
+  // Le rang passe aussi en orange. --hud-accent-ink est la variante lisible en texte (contraste AA)
+  .rank {
+    color: var(--hud-accent-ink);
+  }
+}
+
 // Le rang : la police des titres, en néon. Largeur fixe : les titres restent alignés
 // d'une carte à l'autre, même si le rang passe de #9 à #10
 .rank {

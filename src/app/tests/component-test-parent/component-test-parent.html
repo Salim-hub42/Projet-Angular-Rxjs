@@ -3,6 +3,6 @@
 <!-- La playlist : les cartes les unes sous les autres -->
 <div class="playlist">
   @for (song of tracks(); track song.id) {
-    <app-track-card [track]="song" [rank]="$index" />
+    <app-track-card [track]="song" [rank]="$index" [current]="$first" />
   }
 </div>

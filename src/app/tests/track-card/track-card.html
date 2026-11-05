@@ -1,5 +1,5 @@
 <!-- Une ligne de playlist : le rang à gauche, le morceau au milieu, la durée à droite -->
-<article class="card">
+<article [class.current]="isCurrent()" class="card">
   <span class="rank">#{{ rank() }}</span>
 
   <div class="song">
