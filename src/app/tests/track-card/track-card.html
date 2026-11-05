@@ -1,1 +1,15 @@
-<p>{{ track().title }} - {{ track().artist }} Durée : {{ formattedDuration() }}</p>
+<!-- Une ligne de playlist : le rang à gauche, le morceau au milieu, la durée à droite -->
+<article class="card">
+  <span class="rank">#{{ rank() }}</span>
+
+  <div class="song">
+    <h2 class="song__title">{{ track().title }}</h2>
+    <p class="song__artist">{{ track().artist }}</p>
+  </div>
+
+  <!-- « Durée » reste écrit en toutes lettres : « 3:05 » seul serait ambigu à l'oreille -->
+  <p class="duration">
+    <span class="duration__label">Durée</span>
+    <span class="duration__value">{{ formattedDuration() }}</span>
+  </p>
+</article>

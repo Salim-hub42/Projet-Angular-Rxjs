@@ -1,0 +1,9 @@
+// La playlist : une colonne, comme dans un lecteur de musique. gap = l'espace entre les cartes.
+// max-width : sur un grand écran, le titre et la durée ne s'éloignent pas trop l'un de l'autre
+.playlist {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 40rem;
+  margin-top: 1rem;
+}

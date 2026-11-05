@@ -9,7 +9,7 @@ import { Track } from '../model';
 })
 export class TrackCard {
   readonly track = input.required<Track>();
-  readonly rank;
+  readonly rank = input.required({ transform: (value: number) => value + 1 });
 
   protected readonly formattedDuration = computed(() => {
     const duration = this.track().duration;

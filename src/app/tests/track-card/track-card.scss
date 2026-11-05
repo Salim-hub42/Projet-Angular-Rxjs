@@ -1,0 +1,68 @@
+// :host = la balise <app-track-card> elle-même. Une balise de composant est « inline » par
+// défaut, comme un <span> : on la passe en bloc pour qu'elle prenne toute la largeur
+:host {
+  display: block;
+}
+
+// La carte : un panneau du thème, découpé en 3 colonnes. auto = la taille du contenu,
+// 1fr = tout l'espace restant. Le rang et la durée restent donc collés aux bords
+.card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 1.1rem;
+  background: var(--hud-surface);
+  border: var(--hud-border);
+  border-left: 4px solid var(--hud-glow);
+  clip-path: var(--hud-clip); // coins coupés, comme les autres panneaux
+}
+
+// Le rang : la police des titres, en néon. Largeur fixe : les titres restent alignés
+// d'une carte à l'autre, même si le rang passe de #9 à #10
+.rank {
+  min-width: 2.2rem;
+  font-family: var(--font-title);
+  font-size: 1.2rem;
+  color: var(--hud-glow);
+  font-variant-numeric: tabular-nums;
+}
+
+// min-width: 0 : sans ça, un élément de grille refuse de devenir plus étroit que son texte,
+// et un titre très long ferait déborder la carte sur un téléphone
+.song {
+  min-width: 0;
+}
+
+.song__title {
+  margin: 0; // un <h2> a des marges dans le thème : on les retire pour garder l'alignement
+  font-size: 1.05rem;
+  overflow-wrap: anywhere; // un titre très long passe à la ligne au lieu de déborder
+}
+
+.song__artist {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--hud-ink-soft);
+}
+
+// La durée : le libellé au-dessus, la valeur en dessous, alignés à droite
+.duration {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin: 0;
+}
+
+// Le libellé : texte secondaire, en petites capitales comme les libellés du thème
+.duration__label {
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--hud-ink-soft);
+}
+
+// tabular-nums : tous les chiffres ont la même largeur, les durées s'alignent en colonne
+.duration__value {
+  font-variant-numeric: tabular-nums;
+}

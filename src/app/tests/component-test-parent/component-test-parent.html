@@ -1,4 +1,8 @@
 <h1>Périodes de tests sur input output et model</h1>
-@for (song of tracks(); track song.id) {
-  <app-track-card [track]="song" />
-}
+
+<!-- La playlist : les cartes les unes sous les autres -->
+<div class="playlist">
+  @for (song of tracks(); track song.id) {
+    <app-track-card [track]="song" [rank]="$index" />
+  }
+</div>
