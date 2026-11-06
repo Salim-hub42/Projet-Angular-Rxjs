@@ -46,4 +46,14 @@ export class ComponentTestParent {
       liked: false,
     },
   ]);
+
+  protected readonly currentTrackId = signal<number | null>(null);
+
+  protected playTrack(id: number): void {
+    this.currentTrackId.set(id);
+  }
+
+  protected removeTrack(id: number): void {
+    this.tracks.update((list) => list.filter((track) => track.id !== id));
+  }
 }

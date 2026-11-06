@@ -1,4 +1,4 @@
-import { booleanAttribute, Component, computed, input } from '@angular/core';
+import { booleanAttribute, Component, computed, input, output } from '@angular/core';
 import { Track } from '../model';
 
 @Component({
@@ -12,10 +12,21 @@ export class TrackCard {
   readonly rank = input.required({ transform: (value: number) => value + 1 });
   readonly isCurrent = input(false, { transform: booleanAttribute, alias: 'current' });
 
+  readonly remove = output<number>();
+  readonly playTrack = output<number>();
+
   protected readonly formattedDuration = computed(() => {
     const duration = this.track().duration;
     const minutes = Math.floor(duration / 60);
     const seconds = duration % 60;
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   });
+
+  protected requestRemove(): void {
+    this.remove.emit(this.track().id);
+  }
+
+  protected requestPlay(): void {
+    this.playTrack.emit(this.track().id);
+  }
 }

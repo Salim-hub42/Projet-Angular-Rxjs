@@ -12,4 +12,8 @@
     <span class="duration__label">Durée</span>
     <span class="duration__value">{{ formattedDuration() }}</span>
   </p>
+  <button type="button" (click)="requestRemove()" [aria-label]="'Retirer ' + track().title">
+    Retirer
+  </button>
+  <button type="button" (click)="requestPlay()" [aria-label]="'Lire ' + track().title">Lire</button>
 </article>
