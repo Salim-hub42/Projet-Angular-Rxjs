@@ -16,4 +16,11 @@
     Retirer
   </button>
   <button type="button" (click)="requestPlay()" [aria-label]="'Lire ' + track().title">Lire</button>
+  <button
+    type="button"
+    (click)="requestToggleLike()"
+    [aria-label]="likeLabel() + ' ' + track().title"
+  >
+    {{ likeLabel() }}
+  </button>
 </article>

@@ -14,6 +14,7 @@ export class TrackCard {
 
   readonly remove = output<number>();
   readonly playTrack = output<number>();
+  readonly toggleLike = output<number>();
 
   protected readonly formattedDuration = computed(() => {
     const duration = this.track().duration;
@@ -22,11 +23,17 @@ export class TrackCard {
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   });
 
+  protected readonly likeLabel = computed(() => (this.track().liked ? "Je n'aime pas" : "J'aime"));
+
   protected requestRemove(): void {
     this.remove.emit(this.track().id);
   }
 
   protected requestPlay(): void {
     this.playTrack.emit(this.track().id);
+  }
+
+  protected requestToggleLike(): void {
+    this.toggleLike.emit(this.track().id);
   }
 }

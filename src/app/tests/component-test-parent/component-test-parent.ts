@@ -56,4 +56,10 @@ export class ComponentTestParent {
   protected removeTrack(id: number): void {
     this.tracks.update((list) => list.filter((track) => track.id !== id));
   }
+
+  protected inverseLike(id: number): void {
+    this.tracks.update((list) =>
+      list.map((track) => (track.id === id ? { ...track, liked: !track.liked } : track)),
+    );
+  }
 }

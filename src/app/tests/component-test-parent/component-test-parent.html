@@ -9,6 +9,7 @@
       [current]="song.id === currentTrackId()"
       (remove)="removeTrack($event)"
       (playTrack)="playTrack($event)"
+      (toggleLike)="inverseLike($event)"
     />
   }
 </div>
