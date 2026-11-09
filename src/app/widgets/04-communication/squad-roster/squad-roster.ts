@@ -4,12 +4,13 @@ import { Soldier } from '../soldier';
 import { SoldierCard } from '../soldier-card/soldier-card';
 import { RoleFilter } from '../role-filter/role-filter';
 import { RoleFilterValue } from '../role-filter/role-filter-model';
+import { HudPanel } from '../hud-panel/hud-panel';
 
 const HEAL_AMOUNT = 20;
 const MAX_HEALTH = 100;
 @Component({
   selector: 'app-squad-roster',
-  imports: [NgOptimizedImage, SoldierCard, RoleFilter],
+  imports: [NgOptimizedImage, SoldierCard, RoleFilter, HudPanel],
   templateUrl: './squad-roster.html',
   styleUrl: './squad-roster.scss',
 })

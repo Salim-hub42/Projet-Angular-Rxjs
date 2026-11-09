@@ -10,21 +10,27 @@
   priority
   alt="Trois membres de l'escouade sur une plaine enneigée : un combattant musclé aux cheveux blancs armé d'un canon, un robot blindé au bras-canon et un orc vert équipé d'un réacteur dorsal et d'un lance-roquettes"
 />
-<button type="button" [attr.aria-pressed]="compactView()" (click)="toggleCompactView()">
-  Vue compacte
-</button>
 
-<app-role-filter [(role)]="selectedRole" />
+<app-hud-panel>
+  <h2 panel-title>Filtres</h2>
+  <app-role-filter [(role)]="selectedRole" />
+</app-hud-panel>
 
-<!-- La grille des cartes : autant de colonnes que la largeur le permet -->
-<div class="roster">
-  @for (soldier of visibleSoldiers(); track soldier.id) {
-    <app-soldier-card
-      [soldier]="soldier"
-      [compact]="compactView()"
-      (healSoldier)="careSoldier($event)"
-      (toggleDeploy)="toggleDeployment($event)"
-      (dismiss)="dismissSoldier($event)"
-    />
-  }
-</div>
+<app-hud-panel>
+  <h2 panel-title>Soldats</h2>
+  <button type="button" [attr.aria-pressed]="compactView()" (click)="toggleCompactView()">
+    Vue compacte
+  </button>
+  <!-- La grille des cartes : autant de colonnes que la largeur le permet -->
+  <div class="roster">
+    @for (soldier of visibleSoldiers(); track soldier.id) {
+      <app-soldier-card
+        [soldier]="soldier"
+        [compact]="compactView()"
+        (healSoldier)="careSoldier($event)"
+        (toggleDeploy)="toggleDeployment($event)"
+        (dismiss)="dismissSoldier($event)"
+      />
+    }
+  </div>
+</app-hud-panel>

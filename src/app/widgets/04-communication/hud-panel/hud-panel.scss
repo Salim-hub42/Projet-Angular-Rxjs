@@ -1,0 +1,29 @@
+// :host = la balise <app-hud-panel>, « inline » par défaut : on la passe en bloc.
+// La marge du bas espace les panneaux entre eux, sans que le parent ait à s'en occuper
+:host {
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+// Le panneau : un cadre plus sombre que les cartes, pour que les cartes ressortent dessus
+.panel {
+  background: var(--hud-bg-deep);
+  border: var(--hud-border);
+  clip-path: var(--hud-clip); // coins coupés, comme les autres panneaux du thème
+}
+
+// L'en-tête : une bande avec un trait néon dessous.
+// ⚠️ Le <h2> fourni par le parent n'est PAS stylable d'ici : un contenu projeté appartient
+// au parent, et l'encapsulation des styles (module 2) empêche HudPanel de le cibler.
+// On style donc l'en-tête, et le titre en hérite : la couleur passe aux enfants, et la taille
+// d'un <h2> est relative à celle de son parent (1.5em)
+.panel__header {
+  padding: 0.6rem 1.1rem 0.4rem;
+  border-bottom: 2px solid var(--hud-glow);
+  color: var(--hud-glow);
+  font-size: 0.8rem; // le <h2> fera 1.5 × 0.8 = 1.2rem
+}
+
+.panel__body {
+  padding: 1rem 1.1rem;
+}

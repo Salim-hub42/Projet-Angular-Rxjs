@@ -1,1 +1,9 @@
-<p>hud-panel works!</p>
+<section class="panel">
+  <header class="panel__header">
+    <ng-content select="[panel-title]"><h2>Panneau</h2></ng-content>
+  </header>
+  <!-- Une <div> autour du contenu projeté : c'est elle qui porte la marge intérieure -->
+  <div class="panel__body">
+    <ng-content />
+  </div>
+</section>
