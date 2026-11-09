@@ -12,15 +12,27 @@
     <span class="duration__label">Durée</span>
     <span class="duration__value">{{ formattedDuration() }}</span>
   </p>
-  <button type="button" (click)="requestRemove()" [aria-label]="'Retirer ' + track().title">
-    Retirer
-  </button>
-  <button type="button" (click)="requestPlay()" [aria-label]="'Lire ' + track().title">Lire</button>
-  <button
-    type="button"
-    (click)="requestToggleLike()"
-    [aria-label]="likeLabel() + ' ' + track().title"
-  >
-    {{ likeLabel() }}
-  </button>
+
+  <!-- Les actions : une ligne à part, sous les infos. « Retirer » en dernier : l'action
+       destructive est la plus loin, pour éviter de cliquer dessus par erreur -->
+  <div class="actions">
+    <button type="button" (click)="requestPlay()" [aria-label]="'Lire ' + track().title">
+      Lire
+    </button>
+    <button
+      type="button"
+      (click)="requestToggleLike()"
+      [aria-label]="likeLabel() + ' ' + track().title"
+    >
+      {{ likeLabel() }}
+    </button>
+    <button
+      type="button"
+      class="danger"
+      (click)="requestRemove()"
+      [aria-label]="'Retirer ' + track().title"
+    >
+      Retirer
+    </button>
+  </div>
 </article>

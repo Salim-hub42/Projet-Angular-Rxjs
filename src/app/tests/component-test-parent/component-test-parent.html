@@ -1,5 +1,25 @@
 <h1>Périodes de tests sur input output et model</h1>
 
+<!-- role="status" : le lecteur d'écran annonce le nouveau morceau quand on clique « Lire ».
+     Le <p> reste toujours affiché, seul son contenu change : une zone annoncée doit exister
+     AVANT que son texte change, sinon le lecteur d'écran ne la surveille pas -->
+<p class="now-playing" role="status">
+  @if (currentTrack(); as playing) {
+    En lecture : <strong>{{ playing.title }}</strong> — {{ playing.artist }}
+  } @else {
+    Aucune lecture
+  }
+</p>
+
+<!-- Les statistiques de la playlist, côte à côte -->
+<p class="stats">
+  <span>{{ likedCount() }} morceaux aimés</span>
+  <span>Durée totale : {{ totalDuration() }}</span>
+</p>
+<app-volume-control [(volume)]="volume" />
+<p>Volume : {{ volume() }} %</p>
+<button type="button" (click)="setMaxVolume()">Volume Max</button>
+
 <!-- La playlist : les cartes les unes sous les autres -->
 <div class="playlist">
   @for (song of tracks(); track song.id) {

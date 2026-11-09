@@ -23,7 +23,7 @@ export class TrackCard {
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   });
 
-  protected readonly likeLabel = computed(() => (this.track().liked ? "Je n'aime pas" : "J'aime"));
+  protected readonly likeLabel = computed(() => (this.track().liked ? "Je n'aime plus" : "J'aime"));
 
   protected requestRemove(): void {
     this.remove.emit(this.track().id);

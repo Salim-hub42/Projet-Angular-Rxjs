@@ -78,3 +78,30 @@
 .duration__value {
   font-variant-numeric: tabular-nums;
 }
+
+// Les boutons : une rangée à part. grid-column: 1 / -1 = de la première à la dernière ligne
+// de la grille, donc toute la largeur de la carte, sous le rang, le titre et la durée
+.actions {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap; // sur un téléphone, les boutons passent à la ligne au lieu de déborder
+  gap: 0.5rem;
+
+  button {
+    padding: 0.3rem 0.8rem; // un peu plus serrés que les boutons globaux
+    font-size: 0.75rem;
+  }
+
+  // « Retirer » : poussé à droite (margin-left: auto prend tout l'espace libre) et en rouge,
+  // pour le distinguer des actions sans danger
+  .danger {
+    margin-left: auto;
+    color: var(--hud-danger);
+    border-color: var(--hud-danger);
+
+    &:hover {
+      background: var(--hud-danger);
+      color: var(--hud-surface);
+    }
+  }
+}

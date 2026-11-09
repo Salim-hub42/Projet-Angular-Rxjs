@@ -1,1 +1,40 @@
-<p>volume-control works!</p>
+<!-- role="group" + aria-label : le lecteur d'écran annonce « Volume, groupe » en entrant
+     dans le réglage, puis chaque bouton -->
+<div class="volume-control" role="group" aria-label="Volume">
+  <!-- [disabled] : inutile de baisser sous le minimum, le bouton le montre au lieu de ne
+       rien faire. L'aria-label contient « 10 », le texte visible (exigence WCAG 2.5.3) -->
+  <button
+    type="button"
+    aria-label="Baisser le volume de 10"
+    [disabled]="volume() === minVolume"
+    (click)="decreaseVolume()"
+  >
+    − 10
+  </button>
+
+  <!-- La barre : même structure que la santé du soldat -->
+  <div
+    class="progress"
+    role="progressbar"
+    aria-label="Niveau du volume"
+    [attr.aria-valuemin]="minVolume"
+    [attr.aria-valuemax]="maxVolume"
+    [attr.aria-valuenow]="volume()"
+  >
+    <div class="progress__fill" [style.width.%]="volume()"></div>
+  </div>
+  <!-- aria-hidden : le lecteur d'écran a déjà la valeur grâce à aria-valuenow -->
+  <span class="volume__value" aria-hidden="true">{{ volume() }} %</span>
+
+  <button
+    type="button"
+    aria-label="Monter le volume de 10"
+    [disabled]="volume() === maxVolume"
+    (click)="increaseVolume()"
+  >
+    + 10
+  </button>
+
+  <!-- Pas d'aria-label : le texte visible « Muet » suffit comme nom -->
+  <button type="button" [disabled]="volume() === minVolume" (click)="mute()">Muet</button>
+</div>

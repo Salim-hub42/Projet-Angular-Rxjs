@@ -1,0 +1,46 @@
+// :host = la balise <app-volume-control>, « inline » par défaut : on la passe en bloc
+:host {
+  display: block;
+}
+
+// Le réglage : un panneau du thème, tout sur une ligne. La barre prend la place restante
+.volume-control {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 40rem; // la même largeur que la playlist
+  padding: 0.6rem 1.1rem;
+  background: var(--hud-surface);
+  border: var(--hud-border);
+  clip-path: var(--hud-clip); // coins coupés, comme les autres panneaux
+
+  button {
+    padding: 0.3rem 0.7rem; // un peu plus serrés que les boutons globaux
+    font-size: 0.75rem;
+    white-space: nowrap; // « − 10 » ne se coupe jamais en deux lignes
+  }
+}
+
+// Le fond de la barre : sans hauteur, une <div> vide est invisible
+.progress {
+  flex: 1; // occupe toute la largeur restante entre les boutons
+  min-width: 4rem; // sur un téléphone, la barre ne disparaît pas complètement
+  height: 0.6rem;
+  background: var(--hud-bg-deep);
+  border: 1px solid var(--hud-line);
+  overflow: hidden; // le remplissage ne déborde jamais du fond
+}
+
+// Le remplissage : sa largeur vient de [style.width.%] dans le template
+.progress__fill {
+  height: 100%;
+  background: var(--hud-glow);
+  transition: width 0.2s ease; // la barre glisse à chaque clic
+}
+
+// Le chiffre : largeur fixe, la barre ne bouge pas quand on passe de 9 % à 10 %
+.volume__value {
+  min-width: 3rem;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}

@@ -1,3 +1,25 @@
+// La barre « En lecture » : un panneau du thème avec une bande orange, la même couleur que
+// la carte du morceau en cours, pour relier visuellement les deux
+.now-playing {
+  max-width: 40rem;
+  margin: 0 0 0.75rem;
+  padding: 0.6rem 1.1rem;
+  background: var(--hud-surface);
+  border-left: 4px solid var(--hud-accent);
+}
+
+// Les statistiques : texte secondaire en petites capitales, comme les libellés du thème
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem; // 0.5rem entre deux lignes, 1.5rem entre deux statistiques
+  margin: 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--hud-ink-soft);
+}
+
 // La playlist : une colonne, comme dans un lecteur de musique. gap = l'espace entre les cartes.
 // max-width : sur un grand écran, le titre et la durée ne s'éloignent pas trop l'un de l'autre
 .playlist {
