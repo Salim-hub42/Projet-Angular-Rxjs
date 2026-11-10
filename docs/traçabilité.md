@@ -65,3 +65,17 @@ Légende : ★ cœur · ○ courant · · référence
 | ⬜ | `ngOnChanges` (et ses remplaçants) | ○ | Vu en leçon ; à reconnaître dans le code legacy (module 19) | `docs/04-communication-composants.md` | En lisant du code existant ; en neuf, `computed` ou `linkedSignal` à partir de l'input |
 | — | `ng-template` + `ngTemplateOutlet` | · | — | — | Pour une liste réutilisable dont le parent décide comment dessiner chaque ligne |
 | — | Composants dynamiques (`ViewContainerRef`) | · | — | — | Pour une modale ou un tableau de bord dont le contenu n'est connu qu'à l'exécution |
+
+## Module 5 — [Angular] Directives et pipes
+
+| ✓ | Notion | Priorité | Widget | Fichier | Quand l'utiliser en vrai |
+| --- | --- | --- | --- | --- | --- |
+| ⬜ | Directive d'attribut custom (objet `host`, `input()`, signal interne) | ★ | Armurerie de l'escouade | `widgets/05-directives-pipes/` (`appRarity`) | Pour un comportement réutilisable sur n'importe quel élément : lueur, focus automatique, info-bulle |
+| ⬜ | Pipes natifs `date`, `currency`, `number`, `percent`, `titlecase` (et la locale `fr-FR`) | ★ | Armurerie de l'escouade | `widgets/05-directives-pipes/`, `app.config.ts` | Partout où l'on affiche une date, un prix ou un nombre à un utilisateur |
+| ⬜ | Pipe `keyvalue` | ★ | Armurerie de l'escouade | `widgets/05-directives-pipes/` | Pour parcourir un objet (dictionnaire de caractéristiques, de réglages) avec `@for` |
+| ⬜ | Pipe `json` | ★ | Armurerie de l'escouade | `widgets/05-directives-pipes/` | Pour déboguer une donnée dans le template pendant le développement |
+| ⬜ | Pipe `async` (Promise ; Observable à partir du module 7) | ★ | Armurerie de l'escouade | `widgets/05-directives-pipes/` | Pour afficher une valeur qui arrive plus tard, avec désabonnement automatique |
+| ⬜ | Pipe custom (avec et sans paramètre, logique dans une fonction exportée) | ★ | Armurerie de l'escouade, Registre de l'escouade | `rarity-label-pipe`, `discounted-price-pipe`, `04-communication/role-label-pipe` | Pour une mise en forme réutilisée dans plusieurs composants : libellés, unités, durées |
+| ⬜ | Pipes purs vs impurs | ○ | Armurerie de l'escouade (bonus) | `widgets/05-directives-pipes/` | Pour comprendre pourquoi un affichage ne se met pas à jour après une mutation, et éviter les pipes coûteux |
+| ⬜ | `hostDirectives` (composition) | ○ | Armurerie de l'escouade (bonus) | `widgets/05-directives-pipes/` | Pour donner le même comportement à plusieurs composants sans le recopier (bibliothèques de composants) |
+| — | Directive structurelle custom | · | — | — | Presque jamais en neuf depuis `@if` / `@for` ; à savoir lire dans du code ancien et certaines bibliothèques |
