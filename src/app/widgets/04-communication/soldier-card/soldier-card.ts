@@ -1,11 +1,12 @@
 import { booleanAttribute, Component, computed, input, output } from '@angular/core';
 import { Soldier } from '../soldier';
+import { MissionTimer } from '../mission-timer/mission-timer';
 
 const CRITICAL_HEALTH = 30;
 const WOUNDED_HEALTH = 70;
 @Component({
   selector: 'app-soldier-card',
-  imports: [],
+  imports: [MissionTimer],
   templateUrl: './soldier-card.html',
   styleUrl: './soldier-card.scss',
 })

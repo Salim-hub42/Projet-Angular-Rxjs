@@ -19,6 +19,10 @@
     <span class="health__value" aria-hidden="true">{{ soldier().health }} %</span>
   </div>
 
+  @if (soldier().deployed) {
+    <app-mission-timer [soldierName]="soldier().name" />
+  }
+
   <!-- Les détails, cachés en vue compacte. Le statut n'a pas d'aria-hidden : il n'est donné
        nulle part ailleurs -->
   @if (!compact()) {
