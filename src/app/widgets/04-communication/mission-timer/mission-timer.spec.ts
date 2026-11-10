@@ -12,6 +12,7 @@ describe('MissionTimer', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(MissionTimer);
+    fixture.componentRef.setInput('soldierName', 'Test Soldier');
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

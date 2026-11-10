@@ -12,6 +12,13 @@ describe('SoldierCard', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(SoldierCard);
+    fixture.componentRef.setInput('soldier', {
+      id: 1,
+      name: 'Capitain Rouge',
+      role: 'assault',
+      health: 90,
+      deployed: true,
+    });
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

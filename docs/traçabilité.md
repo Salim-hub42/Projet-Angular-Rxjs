@@ -52,16 +52,16 @@ Légende : ★ cœur · ○ courant · · référence
 
 | ✓ | Notion | Priorité | Widget | Fichier | Quand l'utiliser en vrai |
 | --- | --- | --- | --- | --- | --- |
-| ⬜ | Utiliser un composant enfant (`imports`, `selector`) | ★ | Registre de l'escouade | `widgets/04-communication/squad-roster/` | Dès qu'un écran devient long : un composant = une responsabilité |
-| ⬜ | `input()` (requis, valeur par défaut) | ★ | Registre de l'escouade | `soldier-card/` | Pour qu'un parent donne une donnée à afficher à un enfant |
-| ⬜ | `input()` avec `transform` (`booleanAttribute`) | ★ | Registre de l'escouade | `soldier-card/` | Pour les options booléennes écrites comme un attribut HTML (`compact`, `disabled`…) |
-| ⬜ | `input()` avec `alias` | ★ | — (vu en leçon) | `docs/04-communication-composants.md` | Rarement : garder un nom public stable en renommant l'intérieur |
-| ⬜ | `output()` | ★ | Registre de l'escouade | `soldier-card/` | Pour qu'un enfant signale une action ; le parent, propriétaire des données, décide |
-| ⬜ | `model()` et `[( )]` | ★ | Registre de l'escouade | `role-filter/` | Pour un composant de saisie réutilisable (filtre, curseur, interrupteur) |
-| ⬜ | `<ng-content>` (et `select`, contenu par défaut) | ★ | Registre de l'escouade | `hud-panel/` | Pour les composants « coquilles » : panneaux, cartes, fenêtres modales |
-| ⬜ | Cycle de vie (`ngOnInit`, `ngOnDestroy`, `DestroyRef`) | ★ | Registre de l'escouade | `mission-timer/` | Pour agir une fois avec les inputs, et nettoyer minuteurs, écouteurs et abonnements |
-| ⬜ | `viewChild()` / `viewChildren()` / `contentChild()` | ○ | Registre de l'escouade (bonus) | `squad-roster/` | Pour toucher au DOM depuis la classe : focus, défilement, mesure |
-| ⬜ | `afterNextRender` / `afterEveryRender` | ○ | — (exemple de la leçon) | `docs/04-communication-composants.md` | Pour brancher une bibliothèque tierce ou mesurer un élément une fois affiché |
-| ⬜ | `ngOnChanges` (et ses remplaçants) | ○ | — (exemple de la leçon) | `docs/04-communication-composants.md` | En lisant du code existant ; en neuf, `computed` ou `linkedSignal` à partir de l'input |
+| ✅ | Utiliser un composant enfant (`imports`, `selector`) | ★ | Registre de l'escouade | `widgets/04-communication/squad-roster/` | Dès qu'un écran devient long : un composant = une responsabilité |
+| ✅ | `input()` (requis, valeur par défaut) | ★ | Registre de l'escouade, Lecteur de musique (révision) | `soldier-card/`, `tests/track-card/` | Pour qu'un parent donne une donnée à afficher à un enfant |
+| ✅ | `input()` avec `transform` (`booleanAttribute`, fonction maison) | ★ | Registre de l'escouade, Lecteur de musique (révision) | `soldier-card/`, `tests/track-card/` (`rank`) | Pour les options booléennes écrites comme un attribut HTML (`compact`, `disabled`…), ou convertir une valeur reçue |
+| ✅ | `input()` avec `alias` | ★ | Lecteur de musique (révision) | `tests/track-card/` (`isCurrent` / `current`) | Rarement : garder un nom public stable en renommant l'intérieur |
+| ✅ | `output()` | ★ | Registre de l'escouade, Lecteur de musique (révision) | `soldier-card/`, `tests/track-card/` | Pour qu'un enfant signale une action ; le parent, propriétaire des données, décide |
+| ✅ | `model()` et `[( )]` | ★ | Registre de l'escouade, Lecteur de musique (révision) | `role-filter/`, `tests/volume-control/` | Pour un composant de saisie réutilisable (filtre, curseur, interrupteur) |
+| ✅ | `<ng-content>` (et `select`, contenu par défaut) | ★ | Registre de l'escouade | `hud-panel/` | Pour les composants « coquilles » : panneaux, cartes, fenêtres modales |
+| ✅ | Cycle de vie (`ngOnInit`, `DestroyRef` ; `ngOnDestroy` en version classique) | ★ | Registre de l'escouade | `mission-timer/` | Pour agir une fois avec les inputs, et nettoyer minuteurs, écouteurs et abonnements |
+| ⬜ | `viewChild()` / `viewChildren()` / `contentChild()` | ○ | Bonus du registre non fait ; à pratiquer au module 5 ou 15 (focus d'un champ) | `docs/04-communication-composants.md` | Pour toucher au DOM depuis la classe : focus, défilement, mesure |
+| ⬜ | `afterNextRender` / `afterEveryRender` | ○ | Vu en leçon ; à pratiquer avec une bibliothèque tierce ou une mesure du DOM | `docs/04-communication-composants.md` | Pour brancher une bibliothèque tierce ou mesurer un élément une fois affiché |
+| ⬜ | `ngOnChanges` (et ses remplaçants) | ○ | Vu en leçon ; à reconnaître dans le code legacy (module 19) | `docs/04-communication-composants.md` | En lisant du code existant ; en neuf, `computed` ou `linkedSignal` à partir de l'input |
 | — | `ng-template` + `ngTemplateOutlet` | · | — | — | Pour une liste réutilisable dont le parent décide comment dessiner chaque ligne |
 | — | Composants dynamiques (`ViewContainerRef`) | · | — | — | Pour une modale ou un tableau de bord dont le contenu n'est connu qu'à l'exécution |
