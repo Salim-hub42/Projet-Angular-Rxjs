@@ -30,5 +30,11 @@ export class HomeLab {
       label: 'Angular',
       path: '/04-communication',
     },
+    {
+      number: 5,
+      title: 'Directives et Pipes',
+      label: 'Angular',
+      path: '/05-directives-pipes',
+    },
   ];
 }
