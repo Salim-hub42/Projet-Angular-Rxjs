@@ -1,0 +1,90 @@
+// Le catalogue : chaque colonne fait au moins 18rem. auto-fill crée autant de colonnes qu'il
+// en tient dans la largeur : 3 sur un grand écran, 1 sur un téléphone, sans media query
+.catalog {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+// La carte : un panneau du thème, en colonne. La bande de gauche est cyan pour l'instant :
+// à l'étape 7, la directive appRarity changera sa couleur selon la rareté
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 0; // sans ça, le <pre> du JSON élargirait la carte au lieu de défiler
+  padding: 1rem 1.1rem;
+  background: var(--hud-surface);
+  border: var(--hud-border);
+  border-left: 4px solid var(--hud-glow);
+  clip-path: var(--hud-clip); // coins coupés, comme les autres panneaux
+}
+
+.card__title {
+  margin: 0; // un <h2> a des marges dans le thème : on les retire pour garder l'alignement
+  font-size: 1.05rem;
+  overflow-wrap: anywhere; // un nom très long passe à la ligne au lieu de déborder
+}
+
+// Le prix : la police des titres, en néon. tabular-nums : les chiffres ont tous la même largeur
+.card__price {
+  margin: 0;
+  font-family: var(--font-title);
+  font-size: 1.4rem;
+  color: var(--hud-glow);
+  font-variant-numeric: tabular-nums;
+}
+
+// Les infos : texte secondaire, serré. Les marges des <p> sont retirées, le gap les remplace
+.card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-size: 0.9rem;
+  color: var(--hud-ink-soft);
+
+  p {
+    margin: 0;
+  }
+}
+
+// Les caractéristiques : des étiquettes qui passent à la ligne si la carte est étroite
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0; // une <ul> a une marge à gauche pour ses puces : inutile ici
+  list-style: none;
+}
+
+.stats__item {
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--hud-line);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+}
+
+// Les données brutes : poussées en bas de la carte (margin-top: auto dans une colonne flex),
+// pour que les cartes d'une même rangée restent alignées
+.raw {
+  margin-top: auto;
+  font-size: 0.8rem;
+
+  summary {
+    cursor: pointer;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--hud-ink-soft);
+  }
+
+  // overflow-x: auto : une ligne de JSON trop longue défile dans le bloc au lieu de déborder
+  pre {
+    margin: 0.5rem 0 0;
+    padding: 0.6rem;
+    overflow-x: auto;
+    background: var(--hud-bg-deep);
+    border: 1px solid var(--hud-line);
+  }
+}

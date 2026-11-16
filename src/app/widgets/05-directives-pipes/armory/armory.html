@@ -1,1 +1,38 @@
 <h1>Armurerie de l'escouade</h1>
+
+<!-- Le catalogue : une grille de cartes, autant de colonnes que la largeur le permet -->
+<div class="catalog">
+  @for (item of equipment(); track item.id) {
+    <article class="card">
+      <h2 class="card__title">{{ item.name | titlecase }}</h2>
+
+      <!-- Le prix en premier et en grand : c'est l'information qu'on cherche d'abord -->
+      <p class="card__price">{{ item.price | currency }}</p>
+
+      <div class="card__info">
+        <p>
+          Remise :
+          @if (item.discount > 0) {
+            {{ item.discount | percent }}
+          } @else {
+            aucune
+          }
+        </p>
+        <p>Poids : {{ item.weight | number: '1.1-1' }} kg</p>
+        <p>Date de livraison : {{ item.arrivalDate | date: 'd MMMM y' }}</p>
+      </div>
+
+      <!-- Les caractéristiques : des petites étiquettes côte à côte -->
+      <ul class="stats">
+        @for (stat of item.stats | keyvalue: null; track stat.key) {
+          <li class="stats__item">{{ stat.key | titlecase }} : {{ stat.value }}</li>
+        }
+      </ul>
+
+      <details class="raw">
+        <summary>Données brutes</summary>
+        <pre>{{ item | json }}</pre>
+      </details>
+    </article>
+  }
+</div>

@@ -1,9 +1,25 @@
-import { CurrencyPipe, DatePipe } from '@angular/common';
+import {
+  CurrencyPipe,
+  DatePipe,
+  DecimalPipe,
+  PercentPipe,
+  TitleCasePipe,
+  KeyValuePipe,
+  JsonPipe,
+} from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { Equipment } from '../equipment';
 
 @Component({
-  imports: [DatePipe, CurrencyPipe],
+  imports: [
+    DatePipe,
+    CurrencyPipe,
+    TitleCasePipe,
+    PercentPipe,
+    DecimalPipe,
+    KeyValuePipe,
+    JsonPipe,
+  ],
   selector: 'app-armory',
   styleUrl: './armory.scss',
   templateUrl: './armory.html',

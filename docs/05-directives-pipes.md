@@ -118,18 +118,66 @@ Les expressions (à droite) sont lues **dans la classe de la directive** : `isCr
 
 ### Recevoir une valeur : `input()` sur une directive
 
-Une directive reçoit des inputs **exactement comme un composant**. L'astuce : donner à l'input **le même nom que le sélecteur**. Un seul binding pose alors la directive **et** lui donne sa valeur :
+Dans les exemples qui suivent, `entry` est **une entrée du journal de bord** (un objet `LogEntry`, défini dans l'exemple générique plus bas). C'est la variable d'une boucle `@for (entry of entries(); track entry.id)`, et `entry.status` vaut `'nominal'`, `'warning'` ou `'critical'` (le type `LogStatus`).
+
+**Étape 1 : rappel avec un composant (module 4).**
 
 ```ts
+@Component({ selector: 'app-log-card', ... })
+export class LogCard {
+  readonly status = input<LogStatus>('nominal');
+}
+```
+
+```html
+<app-log-card [status]="entry.status" />
+```
+
+Il y a deux choses distinctes : `app-log-card` **pose** le composant (Angular reconnaît le sélecteur), et `[status]="..."` **donne une valeur** à l'input `status`.
+
+**Étape 2 : une directive fonctionne pareil.** Avec un input nommé `status`, il faut deux attributs :
+
+```ts
+@Directive({ selector: '[appStatusGlow]' })
+export class StatusGlow {
+  readonly status = input<LogStatus>('nominal');
+}
+```
+
+```html
+<article appStatusGlow [status]="entry.status">...</article>
+<!--     └─ pose la     └─ donne la valeur
+            directive      à l'input -->
+```
+
+Ça marche, mais c'est redondant.
+
+**Étape 3 : l'astuce, donner à l'input le même nom que le sélecteur.**
+
+```ts
+@Directive({ selector: '[appStatusGlow]' })
 export class StatusGlow {
   readonly appStatusGlow = input<LogStatus>('nominal');
+  //       └─ même nom que le sélecteur
 }
 ```
 
 ```html
 <article [appStatusGlow]="entry.status">...</article>
-<!--      └── pose la directive ET donne la valeur de l'input -->
 ```
+
+Sur cette seule ligne, Angular fait **deux vérifications** :
+
+1. **« Quelle directive poser ? »** Il regarde le **nom** de l'attribut, sans les crochets : `appStatusGlow`. Ce nom correspond au sélecteur `[appStatusGlow]`, donc la directive est posée.
+2. **« À quel input va la valeur ? »** Les crochets `[ ]` veulent dire « binding vers un input nommé `appStatusGlow` ». La directive en a un, donc `entry.status` y est envoyé.
+
+| Écriture | Directive posée ? | Valeur reçue ? |
+| --- | --- | --- |
+| `<article appStatusGlow>` | ✅ | ❌ (garde la valeur par défaut `'nominal'`) |
+| `<article appStatusGlow [status]="...">` | ✅ | ✅ (input nommé `status`) |
+| `<article [appStatusGlow]="...">` | ✅ | ✅ (input nommé comme le sélecteur) |
+
+> Tu connais déjà ce principe : `[routerLink]="'/home'"`. `RouterLink` est une directive de sélecteur `[routerLink]` qui a un input nommé `routerLink`.
 
 ### Un état interne : un signal
 
