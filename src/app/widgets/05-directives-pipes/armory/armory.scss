@@ -36,6 +36,21 @@
   font-variant-numeric: tabular-nums;
 }
 
+// Le prix soldé : orange, la couleur « explosion » du thème, pour signaler la promotion.
+// --hud-accent-ink est la variante lisible en texte (contraste AA en mode clair comme sombre)
+.card__price--sale {
+  color: var(--hud-accent-ink);
+}
+
+// L'ancien prix : petit, en texte secondaire, collé au prix soldé (la marge négative annule
+// une partie du gap de la carte, pour que les deux prix se lisent comme un seul bloc)
+.card__old-price {
+  margin: -0.6rem 0 0;
+  font-size: 0.85rem;
+  color: var(--hud-ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+
 // Les infos : texte secondaire, serré. Les marges des <p> sont retirées, le gap les remplace
 .card__info {
   display: flex;

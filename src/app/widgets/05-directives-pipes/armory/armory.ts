@@ -9,6 +9,8 @@ import {
 } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { Equipment } from '../equipment';
+import { RarityLabelPipe } from '../rarity-label-pipe';
+import { DiscountedPricePipe } from '../discounted-price-pipe';
 
 @Component({
   imports: [
@@ -19,6 +21,8 @@ import { Equipment } from '../equipment';
     DecimalPipe,
     KeyValuePipe,
     JsonPipe,
+    RarityLabelPipe,
+    DiscountedPricePipe,
   ],
   selector: 'app-armory',
   styleUrl: './armory.scss',

@@ -6,9 +6,20 @@
     <article class="card">
       <h2 class="card__title">{{ item.name | titlecase }}</h2>
 
-      <!-- Le prix en premier et en grand : c'est l'information qu'on cherche d'abord -->
-      <p class="card__price">{{ item.price | currency }}</p>
-
+      <!-- Le prix en premier et en grand : c'est l'information qu'on cherche d'abord.
+           En promotion, le prix soldé prend la place du prix normal, et l'ancien prix est
+           barré en dessous. « au lieu de » est écrit en toutes lettres : un lecteur d'écran
+           n'annonce pas le barré de <s>, il lirait sinon deux prix sans savoir lequel compte -->
+      @if (item.discount > 0) {
+        <p class="card__price card__price--sale">
+          {{ item.price | discountedPrice: item.discount | currency }}
+        </p>
+        <p class="card__old-price">
+          au lieu de <s>{{ item.price | currency }}</s>
+        </p>
+      } @else {
+        <p class="card__price">{{ item.price | currency }}</p>
+      }
       <div class="card__info">
         <p>
           Remise :
@@ -20,6 +31,7 @@
         </p>
         <p>Poids : {{ item.weight | number: '1.1-1' }} kg</p>
         <p>Date de livraison : {{ item.arrivalDate | date: 'd MMMM y' }}</p>
+        <p>Rareté : {{ item.rarity | rarityLabel }}</p>
       </div>
 
       <!-- Les caractéristiques : des petites étiquettes côte à côte -->
