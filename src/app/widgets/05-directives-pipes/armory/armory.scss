@@ -7,8 +7,8 @@
   margin-top: 1rem;
 }
 
-// La carte : un panneau du thème, en colonne. La bande de gauche est cyan pour l'instant :
-// à l'étape 7, la directive appRarity changera sa couleur selon la rareté
+// La carte : un panneau du thème, en colonne. La couleur de la bande de gauche est remplacée
+// plus bas par la couleur de la rareté (classes posées par la directive appRarity)
 .card {
   display: flex;
   flex-direction: column;
@@ -102,4 +102,90 @@
     background: var(--hud-bg-deep);
     border: 1px solid var(--hud-line);
   }
+}
+
+// ─── La lueur de rareté (étape 7) ────────────────────────────────────────────────────────────
+// Les classes .rarity, .rarity--rare… sont posées par la directive appRarity. Leur CSS est ici,
+// dans le composant qui affiche les cartes : une directive n'a pas de styles.
+//
+// L'astuce : chaque rareté ne fait que CHOISIR des valeurs, rangées dans deux variables CSS
+// (--rarity-color et --glow-strength). Les règles qui dessinent (bordure, lueur) sont écrites
+// une seule fois, dans .rarity, et lisent ces variables. Ajouter une rareté = ajouter 2 lignes.
+.rarity {
+  --rarity-color: var(--hud-line); // common : l'acier des bordures, sobre
+  --glow-strength: 0%; // common : pas de lueur au repos
+
+  border-left-color: var(--rarity-color);
+
+  // La lueur est « inset » (à l'intérieur de la carte) : une ombre extérieure serait coupée par
+  // le clip-path des coins. color-mix mélange la couleur avec du transparent : 20 % de couleur
+  // donne une lueur légère, 45 % une lueur forte
+  box-shadow: inset 0 0 1.75rem
+    color-mix(in srgb, var(--rarity-color) var(--glow-strength), transparent);
+
+  // La lueur et le soulèvement s'animent en douceur (désactivé par la règle globale
+  // prefers-reduced-motion de styles.scss pour qui ne veut pas d'animations)
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.rarity--rare {
+  --rarity-color: #d8475a; // bleu
+  --glow-strength: 18%;
+}
+
+.rarity--epic {
+  --rarity-color: #b57bff; // violet
+  --glow-strength: 22%;
+}
+
+.rarity--legendary {
+  --rarity-color: #ffc94d; // or
+  --glow-strength: 26%;
+
+  // Le reflet doré : un dégradé trois fois plus large que la carte, qui glisse de droite à
+  // gauche en boucle. Il est en IMAGE DE FOND, donc toujours sous le texte : la lisibilité ne
+  // change pas
+  background-image: linear-gradient(
+    110deg,
+    transparent 35%,
+    color-mix(in srgb, var(--rarity-color) 16%, transparent) 50%,
+    transparent 65%
+  );
+  background-size: 300% 100%;
+  animation: legendary-sheen 5s linear infinite;
+}
+
+@keyframes legendary-sheen {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: 0 0;
+  }
+}
+
+// Mode clair : les couleurs vives sont trop pâles sur un fond blanc, on prend des teintes foncées
+@media (prefers-color-scheme: light) {
+  .rarity--rare {
+    --rarity-color: #1fbf67;
+  }
+
+  .rarity--epic {
+    --rarity-color: #7a3fc4;
+  }
+
+  .rarity--legendary {
+    --rarity-color: #b07d00;
+  }
+}
+
+// Survol ou focus clavier (le signal highlighted de la directive) : la lueur s'intensifie et la
+// carte se soulève un peu. Cette règle est écrite APRÈS les raretés : à spécificité égale, la
+// dernière gagne, donc son --glow-strength remplace celui de la rareté
+.rarity--highlighted {
+  --glow-strength: 45%;
+  transform: translateY(-3px);
 }

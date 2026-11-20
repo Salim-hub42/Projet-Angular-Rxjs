@@ -3,7 +3,7 @@
 <!-- Le catalogue : une grille de cartes, autant de colonnes que la largeur le permet -->
 <div class="catalog">
   @for (item of equipment(); track item.id) {
-    <article class="card">
+    <article [appRarity]="item.rarity" class="card">
       <h2 class="card__title">{{ item.name | titlecase }}</h2>
 
       <!-- Le prix en premier et en grand : c'est l'information qu'on cherche d'abord.
