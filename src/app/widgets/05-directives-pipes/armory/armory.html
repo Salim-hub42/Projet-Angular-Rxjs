@@ -1,4 +1,11 @@
 <h1>Armurerie de l'escouade</h1>
+<p role="status">
+  @if (nextDelivery | async; as message) {
+    {{ message }}
+  } @else {
+    Chargement de l'arrivage…
+  }
+</p>
 
 <!-- Le catalogue : une grille de cartes, autant de colonnes que la largeur le permet -->
 <div class="catalog">

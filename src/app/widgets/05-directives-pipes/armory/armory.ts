@@ -6,12 +6,15 @@ import {
   TitleCasePipe,
   KeyValuePipe,
   JsonPipe,
+  AsyncPipe,
 } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { Equipment } from '../equipment';
 import { RarityLabelPipe } from '../rarity-label-pipe';
 import { DiscountedPricePipe } from '../discounted-price-pipe';
 import { RarityGlow } from '../rarity';
+
+const MUNITIONS_ARMORY_MS = 2000;
 
 @Component({
   imports: [
@@ -25,12 +28,17 @@ import { RarityGlow } from '../rarity';
     RarityLabelPipe,
     DiscountedPricePipe,
     RarityGlow,
+    AsyncPipe,
   ],
   selector: 'app-armory',
   styleUrl: './armory.scss',
   templateUrl: './armory.html',
 })
 export class Armory {
+  protected readonly nextDelivery = new Promise<string>((resolve) =>
+    setTimeout(() => resolve('Prochain arrivage : 3 caisses de munitions'), MUNITIONS_ARMORY_MS),
+  );
+
   protected readonly equipment = signal<Equipment[]>([
     {
       id: 1,

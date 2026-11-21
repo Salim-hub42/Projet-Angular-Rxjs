@@ -27,7 +27,7 @@
        nulle part ailleurs -->
   @if (!compact()) {
     <div class="details">
-      <p class="soldier-role">{{ soldier().role }}</p>
+      <p class="soldier-role">{{ soldier().role | roleLabel }}</p>
       <span class="health__status">{{ healthStatus() }}</span>
       <!-- [class.deployment--active] : l'étiquette passe en orange quand le soldat est en mission -->
       <span class="deployment" [class.deployment--active]="soldier().deployed">
