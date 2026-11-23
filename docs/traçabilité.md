@@ -45,7 +45,7 @@ Légende : ★ cœur · ○ courant · · référence
 | ✅ | `effect` (et quand NE PAS l'utiliser) | ★ | Poste de ravitaillement | `supply-depot.ts` | Pour synchroniser un signal avec l'extérieur (localStorage, journal, DOM, bibliothèque tierce) ; jamais pour calculer de l'état |
 | ✅ | `linkedSignal` | ○ | Poste de ravitaillement (bonus : choix du véhicule) | `supply-depot.ts` | Pour une valeur dérivée qui doit rester modifiable : sélection dans une liste, valeur par défaut réinitialisée |
 | ✅ | `untracked` | ○ | Exemple de la leçon (armurerie) | `docs/03-signals.md` | Dans un `effect`, pour lire un signal « pour information » sans qu'il relance l'effet |
-| ⬜ | `asReadonly()` | ○ | Vu en leçon ; à pratiquer au module 6 (service à état partagé) | `docs/03-signals.md` | Pour exposer un état en lecture seule et forcer les modifications à passer par des méthodes (services, stores) |
+| ⬜ | `asReadonly()` | ○ | Paquetage de l'escouade (module 6) | `widgets/06-services-di/loadout-store.ts` | Pour exposer un état en lecture seule et forcer les modifications à passer par des méthodes (services, stores) |
 | — | `equal` personnalisé | · | — | — | Quand un signal reçoit souvent un nouvel objet identique et que les recalculs coûtent cher |
 
 ## Module 4 — [Angular] Communication entre composants
@@ -79,3 +79,18 @@ Légende : ★ cœur · ○ courant · · référence
 | ⬜ | Pipes purs vs impurs | ○ | Armurerie de l'escouade (bonus) | `widgets/05-directives-pipes/` | Pour comprendre pourquoi un affichage ne se met pas à jour après une mutation, et éviter les pipes coûteux |
 | ⬜ | `hostDirectives` (composition) | ○ | Armurerie de l'escouade (bonus) | `widgets/05-directives-pipes/` | Pour donner le même comportement à plusieurs composants sans le recopier (bibliothèques de composants) |
 | — | Directive structurelle custom | · | — | — | Presque jamais en neuf depuis `@if` / `@for` ; à savoir lire dans du code ancien et certaines bibliothèques |
+
+## Module 6 — [Angular] Services et injection de dépendances
+
+| ✓ | Notion | Priorité | Widget | Fichier | Quand l'utiliser en vrai |
+| --- | --- | --- | --- | --- | --- |
+| ⬜ | `@Service()` et `@Injectable({ providedIn: 'root' })` | ★ | Paquetage de l'escouade | `widgets/06-services-di/loadout-store.ts` | Pour tout ce qui n'est pas de l'affichage : état partagé, appels HTTP, règles métier |
+| ⬜ | `inject()` (dans un composant, dans un service) | ★ | Paquetage de l'escouade | `gear-catalog`, `loadout-bag`, `loadout-summary` | Chaque fois qu'une classe a besoin d'un service : jamais de `new`, jamais de constructeur |
+| ⬜ | Service à état partagé via signals (état privé, `asReadonly`, `computed`, méthodes) | ★ | Paquetage de l'escouade | `loadout-store.ts` | Pour partager un état entre composants éloignés : panier, utilisateur connecté, préférences, filtres |
+| ⬜ | `InjectionToken` + `useValue` (configuration) | ○ | Paquetage de l'escouade | `loadout-config.ts`, `app.routes.ts` | Pour une configuration (URL d'API, limites, options) qu'on veut changer par route, par environnement ou en test |
+| ⬜ | Providers `useClass`, `useFactory`, `useExisting` | ○ | Paquetage de l'escouade (bonus `useClass`) ; exemple de la leçon | `docs/06-services-injection-dependances.md` | Pour remplacer une implémentation (fausse en test, variante) ou calculer une valeur au démarrage |
+| ⬜ | Injecteurs hiérarchiques (`providers` d'un composant, d'une route) | ○ | Paquetage de l'escouade (un paquetage par soldat) | `soldier-loadout.ts`, `app.routes.ts` | Pour donner une instance séparée à chaque exemplaire d'un composant (formulaire, onglet, éditeur) |
+| ⬜ | Contexte d'injection (NG0203) | ○ | Module 5 (test de la directive) ; leçon | `docs/06-services-injection-dependances.md` | Pour comprendre où `inject()` est permis : propriétés, constructeur, fabriques, `runInInjectionContext` |
+| — | Options `optional` / `self` / `skipSelf` de `inject()` | · | — | — | Pour une dépendance facultative, ou dans une bibliothèque de composants imbriqués |
+| — | `injectAsync` (services chargés à la demande) | · | Paquetage de l'escouade (bonus) | — | Pour un service lourd et rarement utilisé (export PDF, éditeur riche), téléchargé seulement au besoin |
+| — | Options `factory` / `autoProvided` de `@Service()` | · | — | — | Pour choisir l'implémentation à la création, ou fournir un service seulement à une partie de l'app |

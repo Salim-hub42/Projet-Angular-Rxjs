@@ -9,6 +9,11 @@ export const routes: Routes = [
       ),
   },
   {
+    path: '06-services-di',
+    loadComponent: () =>
+      import('./widgets/06-services-di/loadout-page/loadout-page').then((m) => m.LoadoutPage),
+  },
+  {
     path: '05-directives-pipes',
     loadComponent: () =>
       import('./widgets/05-directives-pipes/armory/armory').then((m) => m.Armory),

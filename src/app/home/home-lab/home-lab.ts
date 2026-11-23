@@ -36,5 +36,11 @@ export class HomeLab {
       label: 'Angular',
       path: '/05-directives-pipes',
     },
+    {
+      number: 6,
+      title: 'Services et Injection de Dépendances',
+      label: 'Angular',
+      path: '/06-services-di',
+    },
   ];
 }
