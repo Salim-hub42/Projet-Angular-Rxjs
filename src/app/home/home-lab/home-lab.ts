@@ -38,7 +38,7 @@ export class HomeLab {
     },
     {
       number: 6,
-      title: 'Services et Injection de Dépendances',
+      title: 'Services et injection de dépendances',
       label: 'Angular',
       path: '/06-services-di',
     },
