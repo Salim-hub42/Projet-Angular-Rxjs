@@ -1,4 +1,4 @@
-import { Service, signal } from '@angular/core';
+import { computed, Service, signal } from '@angular/core';
 import { Gear } from './gear';
 @Service()
 export class LoadoutStore {
@@ -6,8 +6,17 @@ export class LoadoutStore {
 
   readonly selectedItems = this.items.asReadonly();
 
+  readonly itemCount = computed(() => this.items().length);
+  readonly totalWeight = computed(() => {
+    return this.items().reduce((sum, gear) => sum + gear.weight, 0);
+  });
+  readonly selectedIds = computed(() => {
+    const ids = this.items().map((item) => item.id);
+    return new Set(ids);
+  });
+
   addItem(item: Gear): void {
-    const isPresent = this.items().some((gear) => gear.id === item.id);
+    const isPresent = this.selectedIds().has(item.id);
     if (isPresent) {
       return;
     }
